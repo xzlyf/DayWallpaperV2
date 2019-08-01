@@ -21,6 +21,9 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.RotateAnimation;
 import android.view.animation.TranslateAnimation;
+import android.widget.FrameLayout;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.xz.com.log.LogUtil;
@@ -135,8 +138,11 @@ public abstract class BaseActivity extends AppCompatActivity {
      * 动画
      */
     public Animation xuanzhaun;
+    public Animation weiyi;
     private void init_anim() {
         xuanzhaun =  AnimationUtils.loadAnimation(this, R.anim.xuanzhuan);
+        weiyi =  AnimationUtils.loadAnimation(this, R.anim.weiyi);
+        weiyi.setFillAfter(true);//使控件停留在播放动画后的位置
     }
 
 
