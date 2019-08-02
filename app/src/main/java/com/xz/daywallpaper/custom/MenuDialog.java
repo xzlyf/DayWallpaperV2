@@ -58,12 +58,33 @@ public class MenuDialog extends Dialog implements View.OnClickListener{
         }
     }
 
+    private long reOnlick = 0;
+
     @Override
     public void dismiss() {
+
+
         if (!isOver) {
+            //防止连续点击，导致动画循环播放
+            if (System.currentTimeMillis()-reOnlick<1000)
+                return;
+
             hideItem();
+            reOnlick = System.currentTimeMillis();
             return;
         } else {
+            v1 = null;
+            v2 = null;
+            v3 = null;
+            v4 = null;
+            showItem = null;
+            showItem2 = null;
+            showItem3 = null;
+            showItem4 = null;
+            hideItem = null;
+            hideItem2 = null;
+            hideItem3 = null;
+            hideItem4 = null;
             super.dismiss();
         }
 

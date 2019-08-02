@@ -97,7 +97,12 @@ public class Presenter {
             //读取本地照片信息
             Local.info.copyright =SharedPreferencesUtil.getPicData(view,Local.simTime,"copyright","null");
             Local.info.enddate = SharedPreferencesUtil.getPicData(view,Local.simTime,"enddate","null");
-            view.backToUi(Local.picTDir);
+            //如果两者有一数据找不到就重新加载网络的
+            if (Local.info.copyright.equals("null")|| Local.info.enddate.equals("null")){
+                getNetPic();
+            }else{
+                view.backToUi(Local.picTDir);
+            }
         } else {
             //不存在
             getNetPic();
