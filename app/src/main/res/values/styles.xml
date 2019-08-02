@@ -25,4 +25,22 @@
         <item name="android:windowLightStatusBar">true</item><!--黑色状态栏-->
         <item name="android:statusBarColor">@color/transparent</item><!--状态栏透明色-->
     </style>
+    <!--菜单item字体样式-->
+    <style name="menu_text">
+        <item name="android:textColor">@color/secondary_text</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+    <!--菜单item样式-->
+    <style name="menu_item" parent="Widget.MaterialComponents.CardView">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">60dp</item>
+        <item name="android:layout_marginTop">15dp</item>
+        <item name="android:layout_marginBottom">15dp</item>
+        <item name="android:background">@color/white</item>
+        <item name="cardCornerRadius">30dp</item>
+        <item name="cardBackgroundColor">@color/colorPrimary</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+        <item name="android:foreground">?attr/selectableItemBackgroundBorderless</item>
+    </style>
 </resources>

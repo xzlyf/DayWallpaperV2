@@ -1,20 +1,15 @@
 package com.xz.daywallpaper;
 
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.CardView;
-import android.util.Log;
 import android.view.View;
-import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.xz.com.log.LogConfig;
-import com.xz.com.log.LogUtil;
 import com.xz.daywallpaper.base.BaseActivity;
+import com.xz.daywallpaper.custom.MenuDialog;
 
 public class MainActivity extends BaseActivity implements View.OnClickListener {
 
@@ -72,6 +67,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         switch (view.getId()) {
             case R.id.menu:
                 menu.startAnimation(xuanzhaun);
+                showMenu();
                 break;
             case R.id.main_pic:
 
@@ -82,6 +78,17 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 }
                 break;
         }
+    }
+
+
+    private MenuDialog menuDialog;
+    /**
+     * 菜单对话框
+     */
+    private void showMenu() {
+        menuDialog = new MenuDialog(this, R.style.base_dialog);
+        menuDialog.create();
+        menuDialog.show();
     }
 
     private void showPicInfo() {
@@ -110,11 +117,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         weiyi = AnimationUtils.loadAnimation(this, R.anim.weiyi);
         weiyi.setFillAfter(true);//使控件停留在播放动画后的位置
         weiyi_Res = AnimationUtils.loadAnimation(this, R.anim.weiyi_reversal);
-        weiyi_Res.setFillAfter(true);//使控件停留在播放动画后的位置
+        weiyi_Res.setFillAfter(true);//
         weiyi2 = AnimationUtils.loadAnimation(this, R.anim.weiyi_2);
-        weiyi2.setFillAfter(true);//使控件停留在播放动画后的位置
+        weiyi2.setFillAfter(true);//
         weiyi2_Res = AnimationUtils.loadAnimation(this, R.anim.weiyi_2_reversal);
-        weiyi2_Res.setFillAfter(true);//使控件停留在播放动画后的位置
+        weiyi2_Res.setFillAfter(true);//
     }
+
 
 }
