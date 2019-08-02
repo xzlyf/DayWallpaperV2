@@ -40,7 +40,7 @@ public class MenuDialog extends Dialog implements View.OnClickListener{
         dialogWindow.setGravity(Gravity.BOTTOM | Gravity.LEFT);//底部显示
         WindowManager.LayoutParams lp = dialogWindow.getAttributes();
         DisplayMetrics d = mContext.getResources().getDisplayMetrics(); // 获取屏幕宽、高用
-        lp.width = (int) (d.widthPixels * 0.6); // 高度设置为屏幕的0.6
+        lp.width = (int) (d.widthPixels * 0.4); // 高度设置为屏幕的0.6
         lp.dimAmount = 0.2f;//背景不变暗
         dialogWindow.setAttributes(lp);
 
