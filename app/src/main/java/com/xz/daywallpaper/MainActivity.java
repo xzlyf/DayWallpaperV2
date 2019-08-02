@@ -20,10 +20,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     private ImageView menu;
     private CardView infoView;
+    private CardView headview;
+    private TextView enddate;
     private TextView copyright;
     private ImageView mainPic;
-
-
+    private boolean isClick = false;
 
 
     @Override
@@ -37,16 +38,23 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         infoView = findViewById(R.id.info_view);
         copyright = findViewById(R.id.copyright);
         mainPic = findViewById(R.id.main_pic);
+        headview = findViewById(R.id.head_view);
+        enddate = findViewById(R.id.enddate);
         menu.setOnClickListener(this);
         mainPic.setOnClickListener(this);
     }
+
     @Override
     public void showData(Object object) {
 
     }
+
     @Override
     public void init_Data() {
         init_log();
+        init_anim();
+        showPicInfo();
+
     }
 
     /**
@@ -61,14 +69,52 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.menu:
                 menu.startAnimation(xuanzhaun);
                 break;
             case R.id.main_pic:
-                infoView.startAnimation(weiyi);
+
+                if (isClick) {
+                    hidePicInfo();
+                } else {
+                    showPicInfo();
+                }
                 break;
         }
+    }
+
+    private void showPicInfo() {
+        infoView.startAnimation(weiyi);
+        headview.startAnimation(weiyi2);
+        isClick = true;
+    }
+
+    private void hidePicInfo() {
+        infoView.startAnimation(weiyi_Res);
+        headview.startAnimation(weiyi2_Res);
+        isClick = false;
+    }
+
+    /**
+     * 动画
+     */
+    public Animation xuanzhaun;
+    public Animation weiyi;
+    public Animation weiyi_Res;
+    public Animation weiyi2;
+    public Animation weiyi2_Res;
+
+    private void init_anim() {
+        xuanzhaun = AnimationUtils.loadAnimation(this, R.anim.xuanzhuan);
+        weiyi = AnimationUtils.loadAnimation(this, R.anim.weiyi);
+        weiyi.setFillAfter(true);//使控件停留在播放动画后的位置
+        weiyi_Res = AnimationUtils.loadAnimation(this, R.anim.weiyi_reversal);
+        weiyi_Res.setFillAfter(true);//使控件停留在播放动画后的位置
+        weiyi2 = AnimationUtils.loadAnimation(this, R.anim.weiyi_2);
+        weiyi2.setFillAfter(true);//使控件停留在播放动画后的位置
+        weiyi2_Res = AnimationUtils.loadAnimation(this, R.anim.weiyi_2_reversal);
+        weiyi2_Res.setFillAfter(true);//使控件停留在播放动画后的位置
     }
 
 }

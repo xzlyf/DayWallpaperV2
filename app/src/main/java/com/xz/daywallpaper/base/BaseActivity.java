@@ -126,7 +126,6 @@ public abstract class BaseActivity extends AppCompatActivity {
     private void init() {
         presenter = new Presenter(this);
         init_Data();
-        init_anim();
         //创建一个HomeUp按钮
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
@@ -134,16 +133,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         }
     }
 
-    /**
-     * 动画
-     */
-    public Animation xuanzhaun;
-    public Animation weiyi;
-    private void init_anim() {
-        xuanzhaun =  AnimationUtils.loadAnimation(this, R.anim.xuanzhuan);
-        weiyi =  AnimationUtils.loadAnimation(this, R.anim.weiyi);
-        weiyi.setFillAfter(true);//使控件停留在播放动画后的位置
-    }
+
 
 
 
