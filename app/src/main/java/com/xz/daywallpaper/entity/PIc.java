@@ -4,13 +4,11 @@ public class PIc {
 
 
     private String startdate;
-    private String fullstartdate;
     private String enddate;
     private String url;
     private String copyright;
     private String copyrightlink;
-    private String title;
-    private String quiz;
+
 
     public String getStartdate() {
         return startdate;
@@ -18,14 +16,6 @@ public class PIc {
 
     public void setStartdate(String startdate) {
         this.startdate = startdate;
-    }
-
-    public String getFullstartdate() {
-        return fullstartdate;
-    }
-
-    public void setFullstartdate(String fullstartdate) {
-        this.fullstartdate = fullstartdate;
     }
 
     public String getEnddate() {
@@ -44,7 +34,6 @@ public class PIc {
         this.url = url;
     }
 
-
     public String getCopyright() {
         return copyright;
     }
@@ -59,21 +48,5 @@ public class PIc {
 
     public void setCopyrightlink(String copyrightlink) {
         this.copyrightlink = copyrightlink;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getQuiz() {
-        return quiz;
-    }
-
-    public void setQuiz(String quiz) {
-        this.quiz = quiz;
     }
 }

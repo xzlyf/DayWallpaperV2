@@ -2,6 +2,7 @@ package com.xz.daywallpaper.custom;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.util.DisplayMetrics;
@@ -13,6 +14,7 @@ import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 
+import com.xz.daywallpaper.CacheActivity;
 import com.xz.daywallpaper.R;
 
 public class MenuDialog extends Dialog implements View.OnClickListener{
@@ -51,6 +53,13 @@ public class MenuDialog extends Dialog implements View.OnClickListener{
         dismiss();
         switch (view.getId()){
             case R.id.v1:
+                break;
+            case R.id.v2:
+                mContext.startActivity(new Intent(mContext, CacheActivity.class));
+                break;
+            case R.id.v3:
+                break;
+            case R.id.v4:
                 break;
         }
     }

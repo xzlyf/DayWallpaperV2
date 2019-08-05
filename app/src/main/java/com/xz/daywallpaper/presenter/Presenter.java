@@ -25,6 +25,10 @@ import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 public class Presenter {
     private Model model;
@@ -36,7 +40,7 @@ public class Presenter {
     }
 
     /**
-     * 初始化主图
+     * 初始化主图====================================================================================
      * 图片信息和图片源文件两者不可缺一，缺了话重新缓存，缓存失败就提示失败
      */
     public void initMainPic() {
@@ -194,5 +198,52 @@ public class Presenter {
         view.backToUi(file.getAbsoluteFile());
     }
 
+    /**
+     * 查找本地缓存图片===============================================================================
+     */
+    public void findLocalPic() {
 
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+
+                File[] list = new File(Local.picDir).listFiles();
+                if (list.length==0){
+                    view.backToUi(false);
+                }
+
+                List<File> fileList = new ArrayList<File>();
+                for (File f : list) {
+                    fileList.add(f);
+                }
+                //以文件名排序，这样就选修改了文件的日期本地缓存图片排序也没有影响--获取排序后的集合
+                Collections.sort(fileList, new Comparator<File>() {
+                    @Override
+                    public int compare(File o1, File o2) {
+                        if (o1.isDirectory() && o2.isFile())
+                            return -1;
+                        if (o1.isFile() && o2.isDirectory())
+                            return 1;
+                        return o2.getName().compareTo(o1.getName());
+                    }
+                });
+
+                List<PIc> picList = new ArrayList<>();
+                for (File f: fileList){
+                    String today = f.getName().split(".jpg")[0];
+                    PIc p= new PIc();
+                    p.setUrl(f.getAbsolutePath());
+                    p.setEnddate(SharedPreferencesUtil.getPicData(view,today,"enddate","null"));
+                    p.setCopyright(SharedPreferencesUtil.getPicData(view,today,"copyright","null"));
+                    picList.add(p);
+
+
+                }
+
+                view.backToUi(picList);
+
+            }
+        }).start();
+
+    }
 }
