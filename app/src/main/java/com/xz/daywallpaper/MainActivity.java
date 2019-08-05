@@ -174,7 +174,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     @Override
     public void showLoading() {
-//        super.showLoading();
+        super.showLoading();
 //        mainPic.setImageResource(R.drawable.loading_);
 
     }

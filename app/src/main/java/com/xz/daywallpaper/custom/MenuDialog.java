@@ -8,14 +8,11 @@ import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.view.animation.TranslateAnimation;
 
-import com.xz.com.log.LogUtil;
 import com.xz.daywallpaper.R;
 
 public class MenuDialog extends Dialog implements View.OnClickListener{
@@ -140,9 +137,10 @@ public class MenuDialog extends Dialog implements View.OnClickListener{
         showItem2 = AnimationUtils.loadAnimation(mContext, R.anim.translate_item_left);
         showItem3 = AnimationUtils.loadAnimation(mContext, R.anim.translate_item_left);
         showItem4 = AnimationUtils.loadAnimation(mContext, R.anim.translate_item_left);
-        showItem2.setStartOffset(100);//延时
-        showItem3.setStartOffset(200);
-        showItem4.setStartOffset(300);
+        showItem.setStartOffset(100);//延时
+        showItem2.setStartOffset(200);
+        showItem3.setStartOffset(300);
+        showItem4.setStartOffset(400);
         hideItem = AnimationUtils.loadAnimation(mContext, R.anim.translate_item_right);
         hideItem2 = AnimationUtils.loadAnimation(mContext, R.anim.translate_item_right);
         hideItem3 = AnimationUtils.loadAnimation(mContext, R.anim.translate_item_right);
