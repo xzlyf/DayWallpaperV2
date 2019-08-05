@@ -9,7 +9,7 @@ public class Date {
      * yyyyMMddHHmmss
      */
     public static String getSimDate(){
-        return new SimpleDateFormat(" yyyyMMddHH").format(new java.util.Date());
+        return new SimpleDateFormat(" yyyyMMdd").format(new java.util.Date());
     }
 
     /**

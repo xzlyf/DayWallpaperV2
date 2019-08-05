@@ -1,5 +1,7 @@
 package com.xz.daywallpaper.presenter;
 
+import android.util.Log;
+
 import com.google.gson.Gson;
 import com.xz.com.log.LogUtil;
 import com.xz.daywallpaper.base.BaseActivity;
@@ -35,6 +37,7 @@ public class Presenter {
 
     /**
      * 初始化主图
+     * 图片信息和图片源文件两者不可缺一，缺了话重新缓存，缓存失败就提示失败
      */
     public void initMainPic() {
         view.showLoading();
@@ -74,9 +77,10 @@ public class Presenter {
 
             @Override
             public void failed(Exception e) {
-                //连接问题
-                view.mToast("当前网络异常x0");
-                view.dismissLoading();
+                //使用本地时间
+                Local.simTime = Date.getSimDate();
+                checkLoclPic(Local.simTime);
+//                view.mToast("当前网络异常x0");
             }
         });
 
@@ -88,6 +92,7 @@ public class Presenter {
      * @param today
      */
     private void checkLoclPic(String today) {
+
         //拼接地址
         Local.picDir = view.getExternalFilesDir("img").toString();
         Local.picTDir = Local.picDir + File.separator + today + ".jpg";
@@ -95,12 +100,12 @@ public class Presenter {
         if (file.exists()) {
             //存在
             //读取本地照片信息
-            Local.info.copyright =SharedPreferencesUtil.getPicData(view,Local.simTime,"copyright","null");
-            Local.info.enddate = SharedPreferencesUtil.getPicData(view,Local.simTime,"enddate","null");
+            Local.info.copyright = SharedPreferencesUtil.getPicData(view, Local.simTime, "copyright", "null");
+            Local.info.enddate = SharedPreferencesUtil.getPicData(view, Local.simTime, "enddate", "null");
             //如果两者有一数据找不到就重新加载网络的
-            if (Local.info.copyright.equals("null")|| Local.info.enddate.equals("null")){
+            if (Local.info.copyright.equals("null") || Local.info.enddate.equals("null")) {
                 getNetPic();
-            }else{
+            } else {
                 view.backToUi(Local.picTDir);
             }
         } else {
@@ -127,9 +132,9 @@ public class Presenter {
                     Local.info.copyright = pic.getCopyright();
                     Local.info.enddate = pic.getEnddate();
                     //保存Pic数据到本地
-                    SharedPreferencesUtil.savePicData(view,Local.simTime,"enddate",pic.getEnddate());
-                    SharedPreferencesUtil.savePicData(view,Local.simTime,"copyright",pic.getCopyright());
-                    SharedPreferencesUtil.savePicData(view,Local.simTime,"url",Local.BING_HEAD+pic.getUrl());
+                    SharedPreferencesUtil.savePicData(view, Local.simTime, "enddate", pic.getEnddate());
+                    SharedPreferencesUtil.savePicData(view, Local.simTime, "copyright", pic.getCopyright());
+                    SharedPreferencesUtil.savePicData(view, Local.simTime, "url", Local.BING_HEAD + pic.getUrl());
 
                     downloadPic(pic.getUrl());
 
@@ -141,6 +146,7 @@ public class Presenter {
             @Override
             public void failed(Exception e) {
                 view.mToast("当前网络异常x1");
+                view.backToUi(false);
                 view.dismissLoading();
             }
         });

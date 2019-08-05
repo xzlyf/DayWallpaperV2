@@ -32,7 +32,6 @@ public class Model implements IModel {
                     String responseData = response.body().string();
                     listener.success(responseData);
                 } catch (IOException e) {
-                    e.printStackTrace();
                     LogUtil.w("请求失败链接："+url);
                     listener.failed(e);
                 }

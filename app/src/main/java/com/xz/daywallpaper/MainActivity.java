@@ -1,5 +1,7 @@
 package com.xz.daywallpaper;
 
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.support.v4.graphics.drawable.DrawableCompat;
@@ -24,6 +26,8 @@ import com.xz.daywallpaper.base.BaseActivity;
 import com.xz.daywallpaper.constant.Local;
 import com.xz.daywallpaper.custom.MenuDialog;
 import com.xz.daywallpaper.entity.PIc;
+
+import static com.xz.daywallpaper.R.drawable.error;
 
 public class MainActivity extends BaseActivity implements View.OnClickListener {
 
@@ -56,27 +60,37 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     @Override
     public void showData(Object object) {
         dismissLoading();
-        Picasso.Builder builder = new Picasso.Builder(this);
-        builder.listener(new Picasso.Listener() {
-            @Override
-            public void onImageLoadFailed(Picasso picasso, Uri uri, Exception exception) {
-                //某些原因加载失败
-                LogUtil.e("图片加载失败："+exception);
-                enddate.setText("加载失败");
-                copyright.setText("请检查下网络是否正常");
-            }
-        });
-        //重置mainPic的宽度-动态设置控件宽高
-        FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) mainPic.getLayoutParams();
-        params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
-        mainPic.setLayoutParams(params);
+        //返回 布尔值表示已经异常
+        if (object instanceof Boolean) {
+            enddate.setText("加载失败");
+            copyright.setText("请检查下网络是否正常");
+            showPicInfo();
 
-        Picasso pic = builder.build();
-        pic.load("file://"+object.toString()).error(R.drawable.error).into(mainPic);
-        enddate.setText(Local.info.enddate);
-        copyright.setText(Local.info.copyright);
-        showPicInfo();
+        } else {
+
+            Picasso.Builder builder = new Picasso.Builder(this);
+            builder.listener(new Picasso.Listener() {
+                @Override
+                public void onImageLoadFailed(Picasso picasso, Uri uri, Exception exception) {
+                    //某些原因加载失败
+                    LogUtil.e("图片加载失败：" + exception);
+                    enddate.setText("加载失败");
+                    copyright.setText("请检查下网络是否正常");
+                }
+            });
+            //重置mainPic的宽度-动态设置控件宽高
+//            FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) mainPic.getLayoutParams();
+//            params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
+//            mainPic.setLayoutParams(params);
+
+            Picasso pic = builder.build();
+            pic.load("file://" + object.toString()).error(error).into(mainPic);
+            enddate.setText(Local.info.enddate);
+            copyright.setText(Local.info.copyright);
+            showPicInfo();
+        }
     }
+
 
     @Override
     public void init_Data() {
@@ -115,6 +129,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
 
     private MenuDialog menuDialog;
+
     /**
      * 菜单对话框
      */
@@ -135,6 +150,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         headview.startAnimation(weiyi2_Res);
         isClick = false;
     }
+
     /**
      * 动画
      */
@@ -156,5 +172,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         weiyi2_Res.setFillAfter(true);//
     }
 
+    @Override
+    public void showLoading() {
+//        super.showLoading();
+//        mainPic.setImageResource(R.drawable.loading_);
 
+    }
 }
