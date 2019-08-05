@@ -7,11 +7,13 @@ import com.xz.com.log.LogUtil;
 import com.xz.daywallpaper.base.BaseActivity;
 import com.xz.daywallpaper.constant.Local;
 import com.xz.daywallpaper.entity.PIc;
+import com.xz.daywallpaper.entity.PicTab;
 import com.xz.daywallpaper.model.IModel;
 import com.xz.daywallpaper.model.Model;
 import com.xz.daywallpaper.utils.Date;
 import com.xz.daywallpaper.utils.NetUtil;
 import com.xz.daywallpaper.utils.SharedPreferencesUtil;
+import com.youtu.Youtu;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -29,6 +31,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+
+import static com.xz.daywallpaper.constant.Local.APP_ID;
+import static com.xz.daywallpaper.constant.Local.SECRET_ID;
+import static com.xz.daywallpaper.constant.Local.SECRET_KEY;
+import static com.xz.daywallpaper.constant.Local.USER_ID;
 
 public class Presenter {
     private Model model;
@@ -106,11 +113,37 @@ public class Presenter {
             //读取本地照片信息
             Local.info.copyright = SharedPreferencesUtil.getPicData(view, Local.simTime, "copyright", "null");
             Local.info.enddate = SharedPreferencesUtil.getPicData(view, Local.simTime, "enddate", "null");
+            Local.info.tab = SharedPreferencesUtil.getPicData(view, Local.simTime, "tab", "null");
             //如果两者有一数据找不到就重新加载网络的
             if (Local.info.copyright.equals("null") || Local.info.enddate.equals("null")) {
                 getNetPic();
             } else {
                 view.backToUi(Local.picTDir);
+            }
+            //标签数据信息判断
+            if (Local.info.tab.equals("null")){
+                getNetPic();
+            }else{
+
+                JSONArray array = null;
+                try {
+
+                    array = new JSONArray(Local.info.tab);
+                    List<PicTab> list = new ArrayList<>();
+                    Gson gson = new Gson();
+
+                    for (int i = 0; i < array.length(); i++) {
+                        list.add(gson.fromJson(array.get(i).toString(),PicTab.class));
+                    }
+
+                    view.backToUi(list);
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    getNetPic();
+                    view.mToast("标签内容被篡改!");
+                }
+
             }
         } else {
             //不存在
@@ -144,6 +177,9 @@ public class Presenter {
 
                 } catch (JSONException e) {
                     e.printStackTrace();
+                    view.mToast("解析异常");
+                    view.backToUi(false);
+                    view.dismissLoading();
                 }
             }
 
@@ -182,6 +218,9 @@ public class Presenter {
 
         } catch (IOException e) {
             e.printStackTrace();
+            view.mToast("图片缓存失败");
+            view.backToUi(false);
+            view.dismissLoading();
 
         } finally {
             try {
@@ -196,6 +235,43 @@ public class Presenter {
             }
         }
         view.backToUi(file.getAbsoluteFile());
+        getPicTab();
+    }
+
+    /**
+     * 腾讯优图api
+     * 识别场景标签
+     */
+    private void getPicTab() {
+        Youtu faceYoutu = new Youtu(APP_ID, SECRET_ID, SECRET_KEY, Youtu.API_YOUTU_END_POINT, USER_ID);
+        JSONObject obj = null;
+        try {
+//            LogUtil.json("标签", obj.toString());
+            obj = faceYoutu.ImageTagUrl(Local.BASE_URL);
+            if (obj.getInt("errorcode") == 0) {
+
+                JSONArray array = obj.getJSONArray("tags");
+                List<PicTab> list = new ArrayList<>();
+                Gson gson = new Gson();
+
+                for (int i = 0; i < array.length(); i++) {
+                    list.add(gson.fromJson(array.get(i).toString(),PicTab.class));
+                }
+                //保存标签数据到本地
+                SharedPreferencesUtil.savePicData(view,Local.simTime,"tab",array.toString());
+                view.backToUi(list);
+
+//                Gson gson = new Gson();
+//                view.backToUi(gson.fromJson(obj.toString(),PicTab.class));
+            } else {
+                view.mToast("AI场景标签识别错误" + obj.getString("errormsg"));
+                view.dismissLoading();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            view.mToast("标签获取失败");
+            view.dismissLoading();
+        }
     }
 
     /**
@@ -208,7 +284,7 @@ public class Presenter {
             public void run() {
 
                 File[] list = new File(Local.picDir).listFiles();
-                if (list.length==0){
+                if (list.length == 0) {
                     view.backToUi(false);
                 }
 
@@ -229,12 +305,12 @@ public class Presenter {
                 });
 
                 List<PIc> picList = new ArrayList<>();
-                for (File f: fileList){
+                for (File f : fileList) {
                     String today = f.getName().split(".jpg")[0];
-                    PIc p= new PIc();
+                    PIc p = new PIc();
                     p.setUrl(f.getAbsolutePath());
-                    p.setEnddate(SharedPreferencesUtil.getPicData(view,today,"enddate","null"));
-                    p.setCopyright(SharedPreferencesUtil.getPicData(view,today,"copyright","null"));
+                    p.setEnddate(SharedPreferencesUtil.getPicData(view, today, "enddate", "null"));
+                    p.setCopyright(SharedPreferencesUtil.getPicData(view, today, "copyright", "null"));
                     picList.add(p);
 
 

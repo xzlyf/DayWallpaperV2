@@ -12,6 +12,14 @@ public class Local {
     public static final String BING_HEAD="https://cn.bing.com";//
     public static String BASE_URL;//拼接完成的URL
 
+
+    /**
+     * 腾讯优图api
+     */
+    public static final String APP_ID = "10189658";
+    public static final String SECRET_ID = "AKID4wafV5EVLwHNEtGYXHm22rSnshGamTBg";
+    public static final String SECRET_KEY = "PZVCdpmbAUZOyJSTO6ZonX2IJ7g05vVq";
+    public static final String USER_ID = "1076409897";
     /**
      * 对话框标识
      */
@@ -26,6 +34,6 @@ public class Local {
     public static class info{
         public static String enddate;
         public static String copyright;
-
+        public static String tab;
     }
 }

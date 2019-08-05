@@ -7,6 +7,8 @@ import android.net.Uri;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutCompat;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.Layout;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
@@ -22,10 +24,24 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 import com.xz.com.log.LogConfig;
 import com.xz.com.log.LogUtil;
+import com.xz.daywallpaper.adapter.TabAdapter;
 import com.xz.daywallpaper.base.BaseActivity;
 import com.xz.daywallpaper.constant.Local;
 import com.xz.daywallpaper.custom.MenuDialog;
 import com.xz.daywallpaper.entity.PIc;
+import com.xz.daywallpaper.entity.PicTab;
+import com.xz.daywallpaper.utils.SpacesItemDecorationVertical;
+import com.youtu.Youtu;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.security.KeyManagementException;
+import java.security.NoSuchAlgorithmException;
+import java.util.Collections;
+import java.util.List;
 
 import static com.xz.daywallpaper.R.drawable.error;
 
@@ -37,7 +53,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private TextView enddate;
     private TextView copyright;
     private ImageView mainPic;
+    private RecyclerView recycler;
+    private TabAdapter adapter;
     private boolean isClick = false;
+
 
 
     @Override
@@ -55,6 +74,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         enddate = findViewById(R.id.enddate);
         menu.setOnClickListener(this);
         mainPic.setOnClickListener(this);
+        recycler = findViewById(R.id.recycler_tab);
     }
 
     @Override
@@ -65,6 +85,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             enddate.setText("加载失败");
             copyright.setText("请检查下网络是否正常");
             showPicInfo();
+
+        } else if (object instanceof List) {
+//            LogUtil.d(((List<PicTab>) object).size());
+            adapter.refresh((List<PicTab>) object);
 
         } else {
 
@@ -97,7 +121,16 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         init_log();
         init_anim();
         presenter.initMainPic();
+        init_recycler();
     }
+
+    private void init_recycler() {
+        recycler.setLayoutManager(new LinearLayoutManager(this));
+        recycler.addItemDecoration(new SpacesItemDecorationVertical(20));
+        adapter= new TabAdapter(this);
+        recycler.setAdapter(adapter);
+    }
+
 
     /**
      * 初始化日志工具

@@ -11,4 +11,12 @@
 
     <color name="transparent">#00ffffff</color>
     <color name="white">#FFFFFF</color>
+
+
+
+    <color name="start">#70e1f5</color>
+    <color name="end">#ffd194</color>
+
+
+
 </resources>
