@@ -31,6 +31,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.logging.Logger;
 
 import static com.xz.daywallpaper.constant.Local.APP_ID;
 import static com.xz.daywallpaper.constant.Local.SECRET_ID;
@@ -67,7 +68,8 @@ public class Presenter {
 
                             Local.server_time = obj2.getLong("time");
                             Local.simTime = Date.getSimDate(Local.server_time);
-
+                            LogUtil.d(Local.server_time);
+                            LogUtil.d(Local.simTime);
                             checkLoclPic(Local.simTime);
                         }
 
@@ -124,10 +126,9 @@ public class Presenter {
             if (Local.info.tab.equals("null")){
                 getNetPic();
             }else{
-
+                //解析json
                 JSONArray array = null;
                 try {
-
                     array = new JSONArray(Local.info.tab);
                     List<PicTab> list = new ArrayList<>();
                     Gson gson = new Gson();
@@ -135,7 +136,6 @@ public class Presenter {
                     for (int i = 0; i < array.length(); i++) {
                         list.add(gson.fromJson(array.get(i).toString(),PicTab.class));
                     }
-
                     view.backToUi(list);
 
                 } catch (JSONException e) {

@@ -1,5 +1,7 @@
 package com.xz.daywallpaper.utils;
 
+import com.xz.com.log.LogUtil;
+
 import java.text.SimpleDateFormat;
 
 
@@ -9,7 +11,7 @@ public class Date {
      * yyyyMMddHHmmss
      */
     public static String getSimDate(){
-        return new SimpleDateFormat(" yyyyMMdd").format(new java.util.Date());
+        return new SimpleDateFormat("yyyyMMdd").format(new java.util.Date());
     }
 
     /**
@@ -17,6 +19,6 @@ public class Date {
      * @return
      */
     public static String getSimDate(Long time){
-        return new SimpleDateFormat(" yyyyMMdd").format(new java.util.Date(time));
+        return new SimpleDateFormat("yyyyMMdd").format(new java.util.Date(time));
     }
 }
