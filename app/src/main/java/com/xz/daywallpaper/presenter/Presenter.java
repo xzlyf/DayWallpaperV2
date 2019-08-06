@@ -68,8 +68,6 @@ public class Presenter {
 
                             Local.server_time = obj2.getLong("time");
                             Local.simTime = Date.getSimDate(Local.server_time);
-                            LogUtil.d(Local.server_time);
-                            LogUtil.d(Local.simTime);
                             checkLoclPic(Local.simTime);
                         }
 

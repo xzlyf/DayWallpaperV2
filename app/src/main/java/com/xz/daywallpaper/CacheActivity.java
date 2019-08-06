@@ -27,6 +27,7 @@ public class CacheActivity extends BaseActivity {
 
     @Override
     public void init_Data() {
+        setTitle("缓存");
         init_recycler();
         presenter.findLocalPic();
     }

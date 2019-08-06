@@ -1,9 +1,12 @@
 package com.xz.daywallpaper;
 
+import android.content.Intent;
 import android.net.Uri;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -35,7 +38,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private RecyclerView recycler;
     private TabAdapter adapter;
     private boolean isClick = false;
-
+    private NestedScrollView scrollView;
 
 
     @Override
@@ -54,6 +57,15 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         menu.setOnClickListener(this);
         mainPic.setOnClickListener(this);
         recycler = findViewById(R.id.recycler_tab);
+        scrollView = findViewById(R.id.scroll_bar);
+        //长按查看图片
+        mainPic.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                startActivity(new Intent(MainActivity.this,PicActivity.class).putExtra("pic_uri",Local.picTDir));
+                return true;
+            }
+        });
     }
 
     @Override
@@ -62,7 +74,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         //返回 布尔值表示已经异常
         if (object instanceof Boolean) {
             enddate.setText("加载失败");
-            copyright.setText("请检查下网络是否正常");
+            copyright.setText("请检查网络是否正常");
             showPicInfo();
 
         } else if (object instanceof List) {

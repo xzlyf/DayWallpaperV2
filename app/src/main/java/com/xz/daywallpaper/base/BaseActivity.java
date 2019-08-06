@@ -29,6 +29,7 @@ import android.widget.Toast;
 import com.xz.com.log.LogUtil;
 import com.xz.daywallpaper.R;
 import com.xz.daywallpaper.presenter.Presenter;
+import com.xz.daywallpaper.utils.TransparentBottom;
 
 
 public abstract class BaseActivity extends AppCompatActivity {
@@ -131,6 +132,9 @@ public abstract class BaseActivity extends AppCompatActivity {
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
+
+        //透明状态栏
+//        TransparentBottom.transparentBottom(this);
     }
 
 

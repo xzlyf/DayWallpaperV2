@@ -16,7 +16,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".CacheActivity"></activity>
+        <activity android:name=".PicActivity"
+            android:theme="@style/AppNoTitle"/>
+        <activity android:name=".CacheActivity" />
         <activity
             android:name=".MainActivity"
             android:screenOrientation="portrait"

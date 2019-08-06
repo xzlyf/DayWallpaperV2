@@ -1,9 +1,9 @@
 package com.xz.daywallpaper.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,8 +11,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.squareup.picasso.Picasso;
 import com.xz.com.log.LogUtil;
+import com.xz.daywallpaper.PicActivity;
 import com.xz.daywallpaper.R;
 import com.xz.daywallpaper.entity.PIc;
 
@@ -22,7 +22,6 @@ import java.util.List;
 public class CacheAdapter extends RecyclerView.Adapter<CacheAdapter.ViewHolder> {
     private Context context;
     private List<PIc> list;
-
     public CacheAdapter(Context context) {
         this.context = context;
         list = new ArrayList<>();
@@ -56,14 +55,20 @@ public class CacheAdapter extends RecyclerView.Adapter<CacheAdapter.ViewHolder> 
         return list.size();
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder {
+    class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         private TextView enddateText;
         private ImageView picView;
 
-        public ViewHolder(@NonNull View itemView) {
+        public ViewHolder(@NonNull  View itemView) {
             super(itemView);
             enddateText = itemView.findViewById(R.id.enddate_text);
             picView = itemView.findViewById(R.id.pic_view);
+            picView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View view) {
+            context.startActivity(new Intent(context, PicActivity.class).putExtra("pic_uri",list.get(getLayoutPosition()).getUrl()));
         }
     }
 }
