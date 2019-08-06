@@ -8,142 +8,140 @@
     android:fillViewport="true"
     android:orientation="vertical"
     android:overScrollMode="never"
+    android:paddingLeft="15dp"
+    android:paddingRight="15dp"
     tools:context=".MainActivity">
 
+
     <LinearLayout
+        android:id="@+id/main_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
-
-
-        <RelativeLayout
-            android:id="@+id/main_layout"
+        <!--menu-->
+        <ImageView
+            android:id="@+id/menu"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_margin="20dp"
+            android:background="@drawable/selector_btn"
+            android:clickable="true"
+            android:focusable="true"
+            android:padding="10dp"
+            android:src="@drawable/menu" />
+        <!--头部信息-->
+        <android.support.v7.widget.CardView
+            android:id="@+id/head_view"
             android:layout_width="match_parent"
-            android:layout_height="600dp"
-            android:layout_gravity="center">
-            <!--menu-->
-            <ImageView
-                android:id="@+id/menu"
-                android:layout_width="45dp"
-                android:layout_height="45dp"
-                android:layout_margin="20dp"
-                android:background="@drawable/selector_btn"
-                android:clickable="true"
-                android:focusable="true"
-                android:padding="10dp"
-                android:src="@drawable/menu" />
-            <!--头部信息-->
-            <android.support.v7.widget.CardView
-                android:id="@+id/head_view"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignTop="@+id/main_view"
-                android:layout_centerInParent="true"
-                android:layout_marginLeft="15dp"
-                android:layout_marginTop="15dp"
-                android:layout_marginRight="15dp"
-                android:elevation="4dp"
-                app:cardCornerRadius="10dp">
+            android:layout_height="50dp"
+            android:layout_marginTop="50dp"
+            android:elevation="4dp"
+            app:cardCornerRadius="10dp">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
-                    android:orientation="vertical"
-                    android:paddingLeft="10dp"
-                    android:paddingTop="10dp">
-
-
-                    <TextView
-                        android:id="@+id/enddate"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="20dp"
-                        android:text="20190801"
-                        android:textColor="@color/secondary_text"
-                        android:textSize="28sp"
-                        android:textStyle="bold" />
-                </LinearLayout>
-            </android.support.v7.widget.CardView>
-            <!--信息-->
-            <android.support.v7.widget.CardView
-                android:id="@+id/info_view"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignBottom="@+id/main_view"
-                android:layout_centerInParent="true"
-                android:layout_marginLeft="15dp"
-                android:layout_marginTop="15dp"
-                android:layout_marginRight="15dp"
-                android:layout_marginBottom="15dp"
-                android:elevation="4dp"
-                app:cardCornerRadius="10dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:orientation="vertical"
-                    android:paddingLeft="10dp"
-                    android:paddingTop="10dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="版权来源"
-                        android:textColor="@color/primary_text"
-                        android:textSize="16sp" />
-
-                    <TextView
-                        android:id="@+id/copyright"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginBottom="10dp"
-                        android:text="夏威夷火山国家公园，夏威夷 (© Grant Ordelheide/Tandem Stills + Motion)"
-                        android:textColor="@color/secondary_text"
-                        android:textSize="16sp" />
-                </LinearLayout>
-            </android.support.v7.widget.CardView>
-            <!--前景照片-->
-            <android.support.v7.widget.CardView
-                android:id="@+id/main_view"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:layout_marginLeft="15dp"
-                android:layout_marginTop="15dp"
-                android:layout_marginRight="15dp"
-                android:layout_marginBottom="15dp"
-                android:elevation="4dp"
-                app:cardCornerRadius="10dp">
-
-                <ImageView
-                    android:id="@+id/main_pic"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:adjustViewBounds="true"
-                    android:src="@drawable/loading_" />
-            </android.support.v7.widget.CardView>
 
             <TextView
+                android:id="@+id/enddate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_centerInParent="true"
-                android:text="▼AI智能识图▼"
-                android:textSize="18sp" />
-        </RelativeLayout>
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="20dp"
+                android:text="1232131321"
+                android:textColor="@color/secondary_text"
+                android:textSize="28sp"
+                android:textStyle="bold" />
+        </android.support.v7.widget.CardView>
 
+        <!--前景照片-->
+        <android.support.v7.widget.CardView
+            android:id="@+id/main_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:elevation="4dp"
+            app:cardCornerRadius="10dp">
+
+            <ImageView
+                android:id="@+id/main_pic"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:src="@drawable/loading_" />
+        </android.support.v7.widget.CardView>
+        <!--尾部信息-->
+        <android.support.v7.widget.CardView
+            android:id="@+id/info_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:elevation="4dp"
+            app:cardCornerRadius="10dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingLeft="10dp"
+                android:paddingTop="10dp"
+                android:paddingRight="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="版权来源"
+                    android:textColor="@color/primary_text"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/copyright"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="10dp"
+                    android:textColor="@color/secondary_text"
+                    android:textSize="16sp" />
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp">
+
+                    <ImageView
+                        android:id="@+id/like_it"
+                        android:layout_width="45dp"
+                        android:layout_height="45dp"
+                        android:background="@drawable/selector_btn"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:padding="10dp"
+                        android:src="@drawable/icon_shoucang" />
+
+                    <ImageView
+                        android:id="@+id/hate_it"
+                        android:layout_width="45dp"
+                        android:layout_height="45dp"
+                        android:layout_gravity="end"
+                        android:background="@drawable/selector_btn"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:padding="10dp"
+                        android:src="@drawable/icon_yincang" />
+
+                </FrameLayout>
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="30dp"
+            android:text="▼AI智能识图▼"
+            android:textSize="18sp" />
+        <!--标签-->
         <android.support.v7.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
-            android:layout_marginBottom="30dp"
-            android:foreground="?attr/selectableItemBackgroundBorderless"
             android:clickable="true"
             android:focusable="true"
+            android:foreground="?attr/selectableItemBackgroundBorderless"
             app:cardCornerRadius="8dp">
 
             <android.support.v7.widget.RecyclerView
@@ -151,10 +149,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
-                android:layout_margin="25dp"
                 android:layout_gravity="bottom"
+                android:layout_margin="25dp"
                 android:overScrollMode="never" />
         </android.support.v7.widget.CardView>
+
     </LinearLayout>
 
 </android.support.v4.widget.NestedScrollView>

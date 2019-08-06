@@ -35,5 +35,6 @@ public class Local {
         public static String enddate;
         public static String copyright;
         public static String tab;
+        public static boolean isHate ;
     }
 }

@@ -40,5 +40,16 @@ public class SharedPreferencesUtil {
         return sp.getString(key,defValue);
     }
 
+    public static void saveState(Context context, String key,boolean data){
+        SharedPreferences sp = context.getSharedPreferences("app_state",
+                Context.MODE_PRIVATE);
+        sp.edit().putBoolean(key, data).apply();
+    }
+    public static boolean getState(Context context, String key, boolean defValue){
+        SharedPreferences sp = context.getSharedPreferences("app_state",
+                Context.MODE_PRIVATE);
+        return sp.getBoolean(key,defValue);
+    }
+
 
 }
