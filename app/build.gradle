@@ -35,7 +35,6 @@ dependencies {
     implementation 'de.hdodenhof:circleimageview:3.0.0'
     implementation 'com.github.bumptech.glide:glide:3.7.0'
     implementation 'com.bm.photoview:library:1.4.1'
-    implementation 'jp.wasabeef:glide-transformations:2.0.1'
     implementation files('libs/json.jar')
     implementation files('libs/youtu-java-sdk.jar')
 }

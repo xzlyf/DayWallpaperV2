@@ -2,19 +2,17 @@ package com.xz.daywallpaper;
 
 import android.content.Intent;
 import android.content.res.ColorStateList;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -30,8 +28,6 @@ import com.xz.daywallpaper.utils.SharedPreferencesUtil;
 import com.xz.daywallpaper.utils.SpacesItemDecorationVertical;
 
 import java.util.List;
-
-import jp.wasabeef.glide.transformations.BlurTransformation;
 
 import static com.xz.daywallpaper.R.drawable.error;
 
@@ -88,38 +84,41 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     @Override
     public void showData(Object object) {
         dismissLoading();
-        //返回 布尔值表示已经异常
         if (object instanceof Boolean) {
+            //加载失败反馈
             enddate.setText("加载失败");
             copyright.setText("请检查网络是否正常");
-//            showPicInfo();
 
         } else if (object instanceof List) {
-//            LogUtil.d(((List<PicTab>) object).size());
+            //标签列表
             adapter.refresh((List<PicTab>) object);
 
+        } else if (object instanceof Bitmap) {
+            //模糊图片反馈
+            mainPic.setImageBitmap((Bitmap) object);
         } else {
+            //主图显示
+//            Picasso.Builder builder = new Picasso.Builder(this);
+//            builder.listener(new Picasso.Listener() {
+//                @Override
+//                public void onImageLoadFailed(Picasso picasso, Uri uri, Exception exception) {
+//                    //某些原因加载失败
+//                    LogUtil.e("图片加载失败：" + exception);
+//                    enddate.setText("加载失败");
+//                    copyright.setText("请检查下网络是否正常");
+//                }
+//            });
+        //    //重置mainPic的宽度-动态设置控件宽高
+//   //         FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) mainPic.getLayoutParams();
+//     //       params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
+//     //       mainPic.setLayoutParams(params);
 
-            Picasso.Builder builder = new Picasso.Builder(this);
-            builder.listener(new Picasso.Listener() {
-                @Override
-                public void onImageLoadFailed(Picasso picasso, Uri uri, Exception exception) {
-                    //某些原因加载失败
-                    LogUtil.e("图片加载失败：" + exception);
-                    enddate.setText("加载失败");
-                    copyright.setText("请检查下网络是否正常");
-                }
-            });
-            //重置mainPic的宽度-动态设置控件宽高
-//            FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) mainPic.getLayoutParams();
-//            params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
-//            mainPic.setLayoutParams(params);
-
-            Picasso pic = builder.build();
-            pic.load("file://" + object.toString()).error(error).into(mainPic);
+//            Picasso pic = builder.build();
+//            pic.load("file://" + object.toString()).error(error).into(mainPic);
             enddate.setText(Local.info.enddate);
             copyright.setText(Local.info.copyright);
-//            showPicInfo();
+
+            update_state();//更新下状态
         }
     }
 
@@ -127,22 +126,24 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     @Override
     public void init_Data() {
         //初始化一些数据，这些都要放进initActivity中初始化
-        Local.info.isHate = SharedPreferencesUtil.getState(this,"is_hate",false);
+        Local.info.isHate = SharedPreferencesUtil.getState(this, "is_hate", false);
         init_log();
         //============================================
+        showLoading();
         init_anim();
         presenter.initMainPic();
         init_recycler();
 
-
     }
 
     private void update_state() {
-        LogUtil.d(Local.info.isHate);
-        if (Local.info.isHate){
-            mHateIt.setImageTintList(ColorStateList.valueOf(ContextCompat.getColor(this,R.color.colorPrimaryDark)));
-        }else{
+        if (Local.info.isHate) {
+            mHateIt.setImageTintList(ColorStateList.valueOf(ContextCompat.getColor(this, R.color.colorPrimaryDark)));
+            presenter.blurryPic(Local.picTDir);
+
+        } else {
             mHateIt.setImageTintList(null);
+            Glide.with(this).load(Local.picTDir).into(mainPic);
 
         }
     }
@@ -183,15 +184,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             case R.id.like_it:
                 break;
             case R.id.hate_it:
-                    Local.info.isHate = !Local.info.isHate;
-                    SharedPreferencesUtil.saveState(this,"is_hate",Local.info.isHate);
-                    if (Local.info.isHate){
-                        Glide.with(this).load(Local.picTDir).bitmapTransform(new BlurTransformation(this, 25)).into(mainPic);
-                    }else{
-                        Glide.with(this).load(Local.picTDir).into(mainPic);
-
-                    }
-                    update_state();
+                Local.info.isHate = !Local.info.isHate;
+                SharedPreferencesUtil.saveState(this, "is_hate", Local.info.isHate);
+                update_state();
                 break;
         }
     }
@@ -247,7 +242,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         weiyi2_Res = AnimationUtils.loadAnimation(this, R.anim.weiyi_2_reversal);
         weiyi2_Res.setFillAfter(true);//
     }
-
 
 
 }
