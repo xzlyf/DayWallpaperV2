@@ -23,6 +23,7 @@ import com.xz.daywallpaper.base.BaseActivity;
 import com.xz.daywallpaper.constant.Local;
 import com.xz.daywallpaper.entity.PIc;
 import com.xz.daywallpaper.entity.PicTab;
+import com.xz.daywallpaper.entity.Update;
 import com.xz.daywallpaper.model.IModel;
 import com.xz.daywallpaper.model.Model;
 import com.xz.daywallpaper.utils.Date;
@@ -311,7 +312,7 @@ public class Presenter {
                     return;
                 }
 
-                view.backToUi(blurBitmap(view,bitmap,25f));
+                view.backToUi(blurBitmap(view, bitmap, 25f));
             }
         }).start();
     }
@@ -405,5 +406,49 @@ public class Presenter {
             }
         }).start();
 
+    }
+
+    /**
+     * 检查更新操作==================================================================================
+     */
+    public void checkUpdate() {
+        model.getDataFromNet(Local.UPDATE_SERVER, new IModel.OnLoadCompleteListener() {
+            @Override
+            public void success(String data) {
+                JSONObject obj = null;
+
+                try {
+//                    LogUtil.json("更新数据",data);
+                    obj = new JSONObject(data);
+                    if (obj.getInt("value") == 1) {
+                        JSONObject obj2 = obj.getJSONObject("data");
+                        Gson gson = new Gson();
+                        Update update = gson.fromJson(obj2.toString(), Update.class);
+                        Local.info.cloudVersionCode = update.getCode();
+                        //判断比较是否需要升级
+
+                        if (Local.info.LocalVersionCode < Local.info.cloudVersionCode) {
+                            view.backToUi(update);
+                        }
+                    } else {
+                        //服务器问题
+                        view.showDialog("服务器异常0x1",Local.DIALOG_E);
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    //解析问题-可能是网站404了
+                    view.showDialog("服务器异常0x2",Local.DIALOG_E);
+
+
+                }
+
+            }
+
+            @Override
+            public void failed(Exception e) {
+
+            }
+        });
     }
 }

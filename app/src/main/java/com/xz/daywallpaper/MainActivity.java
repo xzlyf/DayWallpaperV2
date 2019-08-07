@@ -1,9 +1,12 @@
 package com.xz.daywallpaper;
 
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.SystemClock;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.CardView;
@@ -23,9 +26,13 @@ import com.xz.daywallpaper.adapter.TabAdapter;
 import com.xz.daywallpaper.base.BaseActivity;
 import com.xz.daywallpaper.constant.Local;
 import com.xz.daywallpaper.custom.MenuDialog;
+import com.xz.daywallpaper.custom.UpdateDialog;
 import com.xz.daywallpaper.entity.PicTab;
+import com.xz.daywallpaper.entity.Update;
+import com.xz.daywallpaper.utils.PackageUtil;
 import com.xz.daywallpaper.utils.SharedPreferencesUtil;
 import com.xz.daywallpaper.utils.SpacesItemDecorationVertical;
+import com.xz.daywallpaper.utils.ThreadUtil;
 
 import java.util.List;
 
@@ -96,6 +103,19 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         } else if (object instanceof Bitmap) {
             //模糊图片反馈
             mainPic.setImageBitmap((Bitmap) object);
+        } else if (object instanceof Update) {
+            //升级反馈
+            /**
+             * 检查更新
+             */
+            UpdateDialog dialog = new UpdateDialog(MainActivity.this, R.style.update_dialog);
+            dialog.create();
+            dialog.setMsg(((Update) object).getMsg());
+            dialog.setVersionName(((Update) object).getName());
+            dialog.setDownloadLink(((Update) object).getLink());
+            dialog.setLevel(((Update)object).getLevel());
+            dialog.show();
+
         } else {
             //主图显示
 //            Picasso.Builder builder = new Picasso.Builder(this);
@@ -108,7 +128,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 //                    copyright.setText("请检查下网络是否正常");
 //                }
 //            });
-        //    //重置mainPic的宽度-动态设置控件宽高
+            //    //重置mainPic的宽度-动态设置控件宽高
 //   //         FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) mainPic.getLayoutParams();
 //     //       params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
 //     //       mainPic.setLayoutParams(params);
@@ -127,14 +147,35 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     public void init_Data() {
         //初始化一些数据，这些都要放进initActivity中初始化
         Local.info.isHate = SharedPreferencesUtil.getState(this, "is_hate", false);
+        Local.info.LocalVersionCode = PackageUtil.getVersionCode(this);
         init_log();
         //============================================
         showLoading();
         init_anim();
         presenter.initMainPic();
         init_recycler();
+        init_update();
+    }
+
+    /**
+     * 获取本地版本信息
+     */
+
+    /**
+     * 检查更新
+     */
+    private void init_update() {
+
+        ThreadUtil.runInThread(new Runnable() {
+            @Override
+            public void run() {
+                SystemClock.sleep(3000);//3秒后执行检查更新操作
+                presenter.checkUpdate();
+            }
+        });
 
     }
+
 
     private void update_state() {
         if (Local.info.isHate) {

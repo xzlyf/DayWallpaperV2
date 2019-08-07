@@ -32,7 +32,7 @@ public class Model implements IModel {
                     String responseData = response.body().string();
                     listener.success(responseData);
                 } catch (IOException e) {
-                    LogUtil.w("请求失败链接："+url);
+                    LogUtil.e("请求失败链接："+url);
                     listener.failed(e);
                 }
             }

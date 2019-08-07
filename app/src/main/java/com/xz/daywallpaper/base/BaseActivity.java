@@ -29,6 +29,7 @@ import android.widget.Toast;
 import com.xz.com.log.LogUtil;
 import com.xz.daywallpaper.R;
 import com.xz.daywallpaper.presenter.Presenter;
+import com.xz.daywallpaper.utils.ActivityUtil;
 import com.xz.daywallpaper.utils.TransparentBottom;
 
 
@@ -77,6 +78,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
 //        LogUtil.toSave();
+        ActivityUtil.removeActivity(this);
     }
 
 
@@ -98,7 +100,8 @@ public abstract class BaseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         //公共属性
         mContext = this;
-
+        //向管理工具类添加活动进去
+        ActivityUtil.addActivity(this);
         //公共方法
         setContentView(getLayoutResource());
         findID();
