@@ -1,11 +1,8 @@
 package com.xz.daywallpaper;
 
 import android.content.Intent;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
-import android.net.Uri;
 import android.os.SystemClock;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.NestedScrollView;
@@ -19,14 +16,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.squareup.picasso.Picasso;
 import com.xz.com.log.LogConfig;
-import com.xz.com.log.LogUtil;
 import com.xz.daywallpaper.adapter.TabAdapter;
 import com.xz.daywallpaper.base.BaseActivity;
 import com.xz.daywallpaper.constant.Local;
-import com.xz.daywallpaper.custom.MenuDialog;
-import com.xz.daywallpaper.custom.UpdateDialog;
+import com.xz.daywallpaper.widget.MenuDialog;
+import com.xz.daywallpaper.widget.UpdateDialog;
 import com.xz.daywallpaper.entity.PicTab;
 import com.xz.daywallpaper.entity.Update;
 import com.xz.daywallpaper.utils.PackageUtil;
@@ -35,8 +30,6 @@ import com.xz.daywallpaper.utils.SpacesItemDecorationVertical;
 import com.xz.daywallpaper.utils.ThreadUtil;
 
 import java.util.List;
-
-import static com.xz.daywallpaper.R.drawable.error;
 
 public class MainActivity extends BaseActivity implements View.OnClickListener {
 
@@ -81,7 +74,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         mainPic.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
-                startActivity(new Intent(MainActivity.this, PicActivity.class).putExtra("pic_uri", Local.picTDir));
+                startActivity(new Intent(MainActivity.this, PicViewActivity.class).putExtra("pic_uri", Local.picTDir));
                 return true;
             }
         });

@@ -11,8 +11,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.xz.com.log.LogUtil;
-import com.xz.daywallpaper.PicActivity;
+import com.xz.daywallpaper.PicDetailActivity;
+import com.xz.daywallpaper.PicViewActivity;
 import com.xz.daywallpaper.R;
 import com.xz.daywallpaper.entity.PIc;
 
@@ -68,7 +68,8 @@ public class CacheAdapter extends RecyclerView.Adapter<CacheAdapter.ViewHolder> 
 
         @Override
         public void onClick(View view) {
-            context.startActivity(new Intent(context, PicActivity.class).putExtra("pic_uri",list.get(getLayoutPosition()).getUrl()));
+//            context.startActivity(new Intent(context, PicViewActivity.class).putExtra("pic_uri",list.get(getLayoutPosition()).getUrl()));
+            context.startActivity(new Intent(context, PicDetailActivity.class).putExtra("pic_uri",list.get(getLayoutPosition()).getUrl()));
         }
     }
 }

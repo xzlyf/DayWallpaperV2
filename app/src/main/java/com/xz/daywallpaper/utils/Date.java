@@ -21,4 +21,11 @@ public class Date {
     public static String getSimDate(Long time){
         return new SimpleDateFormat("yyyyMMdd").format(new java.util.Date(time));
     }
+    /**
+     *
+     * @return
+     */
+    public static String getSimDate(Long time,String parent){
+        return new SimpleDateFormat(parent).format(new java.util.Date(time));
+    }
 }

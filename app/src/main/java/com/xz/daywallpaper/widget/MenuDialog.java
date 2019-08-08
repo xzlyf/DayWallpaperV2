@@ -1,4 +1,4 @@
-package com.xz.daywallpaper.custom;
+package com.xz.daywallpaper.widget;
 
 import android.app.Dialog;
 import android.content.Context;

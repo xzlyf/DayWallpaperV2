@@ -16,18 +16,18 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <provider
-            android:name="android.support.v4.content.FileProvider"
-            android:authorities="com.xz.daywallpaper"
-            android:exported="false"
-            android:grantUriPermissions="true">
-            <meta-data
-                android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_paths" />
-        </provider>
-        <activity android:name=".PicActivity"
-            android:theme="@style/AppNoTitle"/>
-        <activity android:name=".CacheActivity" />
+        <activity android:name=".PicDetailActivity"></activity>
+        <activity
+            android:name=".PicPanoramaActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppNoTitle" />
+        <activity
+            android:name=".PicViewActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppNoTitle" />
+        <activity
+            android:name=".CacheActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".MainActivity"
             android:screenOrientation="portrait"
@@ -38,6 +38,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="com.xz.daywallpaper"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
     </application>
 
 </manifest>

@@ -37,4 +37,5 @@ dependencies {
     implementation 'com.bm.photoview:library:1.4.1'
     implementation files('libs/json.jar')
     implementation files('libs/youtu-java-sdk.jar')
+    implementation 'com.gjiazhe:PanoramaImageView:1.0'
 }

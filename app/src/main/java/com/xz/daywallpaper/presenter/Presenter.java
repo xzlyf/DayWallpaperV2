@@ -400,7 +400,7 @@ public class Presenter {
 
 
                 }
-
+                Local.info.picTotal = picList.size();
                 view.backToUi(picList);
 
             }

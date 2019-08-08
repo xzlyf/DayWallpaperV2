@@ -40,5 +40,6 @@ public class Local {
         public static boolean isHate ;
         public static int cloudVersionCode;
         public static int LocalVersionCode;
+        public static int picTotal;
     }
 }
