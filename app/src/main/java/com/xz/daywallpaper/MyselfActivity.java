@@ -98,7 +98,12 @@ public class MyselfActivity extends BaseActivity implements View.OnClickListener
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.back:
-                finish();
+                if (layout2.getVisibility()==View.VISIBLE){
+                    layout2.setVisibility(View.GONE);
+                    layout1.setVisibility(View.VISIBLE);
+                }else{
+                    finish();
+                }
                 break;
             case R.id.login_btn:
                 Map<String,String> userMap = new HashMap<>();
