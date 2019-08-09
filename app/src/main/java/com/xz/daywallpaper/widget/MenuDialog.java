@@ -15,6 +15,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 
 import com.xz.daywallpaper.CacheActivity;
+import com.xz.daywallpaper.MyselfActivity;
 import com.xz.daywallpaper.R;
 
 public class MenuDialog extends Dialog implements View.OnClickListener{
@@ -53,6 +54,7 @@ public class MenuDialog extends Dialog implements View.OnClickListener{
         dismiss();
         switch (view.getId()){
             case R.id.v1:
+                mContext.startActivity(new Intent(mContext, MyselfActivity.class));
                 break;
             case R.id.v2:
                 mContext.startActivity(new Intent(mContext, CacheActivity.class));

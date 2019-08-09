@@ -16,7 +16,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".PicDetailActivity"></activity>
+        <activity android:name=".MyselfActivity"></activity>
+        <activity android:name=".PicDetailActivity" />
         <activity
             android:name=".PicPanoramaActivity"
             android:screenOrientation="portrait"

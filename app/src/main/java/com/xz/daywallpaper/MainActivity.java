@@ -81,6 +81,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             }
         });
 
+
     }
 
     @Override
@@ -112,24 +113,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             dialog.show();
 
         } else {
-            //主图显示
-//            Picasso.Builder builder = new Picasso.Builder(this);
-//            builder.listener(new Picasso.Listener() {
-//                @Override
-//                public void onImageLoadFailed(Picasso picasso, Uri uri, Exception exception) {
-//                    //某些原因加载失败
-//                    LogUtil.e("图片加载失败：" + exception);
-//                    enddate.setText("加载失败");
-//                    copyright.setText("请检查下网络是否正常");
-//                }
-//            });
-            //    //重置mainPic的宽度-动态设置控件宽高
-//   //         FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) mainPic.getLayoutParams();
-//     //       params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
-//     //       mainPic.setLayoutParams(params);
-
-//            Picasso pic = builder.build();
-//            pic.load("file://" + object.toString()).error(error).into(mainPic);
             enddate.setText(Local.info.enddate);
             copyright.setText(Local.info.copyright);
 
