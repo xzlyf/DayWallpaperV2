@@ -17,7 +17,8 @@
             android:gravity="center"
             android:text="asdsa" />
 
-    <android.support.v7.widget.RecyclerView
+
+    <com.xz.daywallpaper.widget.SideRecyclerView
         android:id="@+id/recycler_pic"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

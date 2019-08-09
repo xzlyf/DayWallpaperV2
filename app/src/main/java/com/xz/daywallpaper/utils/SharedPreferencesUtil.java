@@ -3,6 +3,10 @@ package com.xz.daywallpaper.utils;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.xz.com.log.LogUtil;
+
+import java.io.File;
+
 /**
  * SP工具类
  */
@@ -51,5 +55,23 @@ public class SharedPreferencesUtil {
         return sp.getBoolean(key,defValue);
     }
 
+    public static boolean deleteDate(Context context, String FilenName){
+//        File file = new File(context.getFilesDir()+File.separator+"shared_prefs"+File.separator+FilenName+".xml");
+        File file = new File("/data/data/" + context.getPackageName() + "/shared_prefs", FilenName+".xml");
+
+        //判断路径是否存在
+        if (!file.exists()){
+            LogUtil.d("a"+file.getAbsolutePath());
+            return false;
+        }
+        //判断是文件夹还是文件
+        if (file.isDirectory()){
+            LogUtil.d("b");
+            return false;
+        }
+        LogUtil.d("c");
+
+        return file.delete();
+    }
 
 }

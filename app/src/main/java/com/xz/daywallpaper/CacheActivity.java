@@ -4,18 +4,19 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.TextView;
 
-import com.xz.com.log.LogUtil;
 import com.xz.daywallpaper.adapter.CacheAdapter;
+import com.xz.daywallpaper.adapter.NewCacheAdapter;
 import com.xz.daywallpaper.base.BaseActivity;
 import com.xz.daywallpaper.constant.Local;
 import com.xz.daywallpaper.entity.PIc;
 import com.xz.daywallpaper.utils.SpacesItemDecorationVH;
+import com.xz.daywallpaper.widget.SideRecyclerView;
 
 import java.util.List;
 
 public class CacheActivity extends BaseActivity {
-    private RecyclerView recycler;
-    private CacheAdapter adapter;
+    private SideRecyclerView recycler;
+    private NewCacheAdapter adapter;
     private TextView total;
 
     @Override
@@ -40,8 +41,9 @@ public class CacheActivity extends BaseActivity {
     private void init_recycler() {
         recycler.setLayoutManager(new LinearLayoutManager(this));
         recycler.addItemDecoration(new SpacesItemDecorationVH(20));
-        adapter = new CacheAdapter(this);
+        adapter = new NewCacheAdapter(this);
         recycler.setAdapter(adapter);
+
     }
 
     @Override

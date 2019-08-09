@@ -1,5 +1,6 @@
 package com.xz.daywallpaper;
 
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -36,6 +37,7 @@ public class PicDetailActivity extends BaseActivity implements View.OnClickListe
 
         File file = new File(path);
         infoPic.setText("创建时间："+Date.getSimDate(file.lastModified(), "yyyy年mm月dd日 HH:mm:ss")+"");
+
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.xz.daywallpaper;
 
+import android.animation.ObjectAnimator;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
@@ -12,6 +13,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.view.animation.AnticipateOvershootInterpolator;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -106,7 +108,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             dialog.setMsg(((Update) object).getMsg());
             dialog.setVersionName(((Update) object).getName());
             dialog.setDownloadLink(((Update) object).getLink());
-            dialog.setLevel(((Update)object).getLevel());
+            dialog.setLevel(((Update) object).getLevel());
             dialog.show();
 
         } else {
@@ -255,7 +257,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     }
 
     /**
-     * 动画
+     * 补间动画
      */
     public Animation xuanzhaun;
     public Animation weiyi;
