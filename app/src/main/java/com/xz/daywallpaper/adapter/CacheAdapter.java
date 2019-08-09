@@ -77,7 +77,7 @@ public class CacheAdapter extends RecyclerView.Adapter<CacheAdapter.ViewHolder> 
             super(itemView);
             enddateText = itemView.findViewById(R.id.enddate_text);
             picView = itemView.findViewById(R.id.pic_view);
-            itemView.setOnClickListener(this);
+            picView.setOnClickListener(this);
 
         }
 

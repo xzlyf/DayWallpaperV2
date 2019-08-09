@@ -10,6 +10,7 @@ import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
 import android.graphics.Rect;
+import android.os.SystemClock;
 import android.renderscript.Allocation;
 import android.renderscript.Element;
 import android.renderscript.RenderScript;
@@ -29,6 +30,7 @@ import com.xz.daywallpaper.model.Model;
 import com.xz.daywallpaper.utils.Date;
 import com.xz.daywallpaper.utils.NetUtil;
 import com.xz.daywallpaper.utils.SharedPreferencesUtil;
+import com.xz.daywallpaper.utils.ThreadUtil;
 import com.youtu.Youtu;
 
 import org.json.JSONArray;
@@ -48,6 +50,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Logger;
 
 import static com.xz.daywallpaper.constant.Local.APP_ID;
@@ -448,6 +451,40 @@ public class Presenter {
             @Override
             public void failed(Exception e) {
 
+            }
+        });
+    }
+
+    /**
+     * 登陆操作======================================================================================
+     * @param userMap 用户信息
+     */
+    public void login(Map<String, String> userMap) {
+
+        //模拟操作
+        ThreadUtil.runInThread(new Runnable() {
+            @Override
+            public void run() {
+
+                SystemClock.sleep(2000);
+
+                view.backToUi(false);//登陆失败
+            }
+        });
+    }
+
+    /**
+     * 注册操作======================================================================================
+     */
+    public void register() {
+        //模拟操作
+        ThreadUtil.runInThread(new Runnable() {
+            @Override
+            public void run() {
+
+                SystemClock.sleep(2000);
+
+                view.backToUi(true);//登陆失败
             }
         });
     }

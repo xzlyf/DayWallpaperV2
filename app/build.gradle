@@ -38,4 +38,5 @@ dependencies {
     implementation files('libs/json.jar')
     implementation files('libs/youtu-java-sdk.jar')
     implementation 'com.gjiazhe:PanoramaImageView:1.0'
+    implementation 'com.romainpiel.shimmer:library:1.4.0@aar'
 }

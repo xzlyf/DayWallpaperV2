@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!--松开-->
+    <item android:state_pressed="false">
+        <shape android:shape="rectangle">
+            <gradient
+                android:angle="0"
+                android:endColor="#f64f59"
+                android:centerColor="#c471ed"
+                android:startColor="#12c2e9" />
+        </shape>
+    </item>
+    <!--按下-->
+    <item android:state_pressed="true">
+        <shape android:shape="rectangle">
+            <gradient
+                android:angle="0"
+                android:endColor="#ec2F4B"
+                android:startColor="#009FFF" />
+        </shape>
+    </item>
+
+</selector>

@@ -1,6 +1,7 @@
 package com.xz.daywallpaper.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.xz.daywallpaper.PicDetailActivity;
 import com.xz.daywallpaper.R;
 import com.xz.daywallpaper.constant.Local;
 import com.xz.daywallpaper.entity.PIc;
@@ -78,7 +80,7 @@ public class NewCacheAdapter extends RecyclerView.Adapter<NewCacheAdapter.SlideV
         return mList.size();
     }
 
-    public class SlideViewHolder extends RecyclerView.ViewHolder {
+    public class SlideViewHolder extends RecyclerView.ViewHolder implements  View.OnClickListener {
         private TextView mDeleteTv;
         private TextView enddateText;
         private ImageView picView;
@@ -88,6 +90,12 @@ public class NewCacheAdapter extends RecyclerView.Adapter<NewCacheAdapter.SlideV
             mDeleteTv = itemView.findViewById(R.id.tv_delete);
             enddateText = itemView.findViewById(R.id.enddate_text);
             picView = itemView.findViewById(R.id.pic_view);
+            picView.setOnClickListener(this);
+        }
+        @Override
+        public void onClick(View view) {
+//            context.startActivity(new Intent(context, PicViewActivity.class).putExtra("pic_uri",list.get(getLayoutPosition()).getUrl()));
+            mContext.startActivity(new Intent(mContext, PicDetailActivity.class).putExtra("pic_uri", mList.get(getLayoutPosition()).getUrl()));
         }
     }
 }
