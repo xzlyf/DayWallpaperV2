@@ -137,7 +137,7 @@ public class MyselfActivity extends BaseActivity implements View.OnClickListener
     }
 
     /**
-     * 设置空间是否启用
+     * 设置控件是否启用
      * @param b
      */
     private void setWidgetEnable(boolean b){

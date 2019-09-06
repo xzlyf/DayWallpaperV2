@@ -9,6 +9,7 @@
     android:overScrollMode="never"
     android:paddingLeft="15dp"
     android:paddingRight="15dp"
+    android:focusableInTouchMode="true"
     tools:context=".MainActivity">
 
 

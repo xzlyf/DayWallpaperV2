@@ -16,15 +16,15 @@
         <item name="android:windowBackground">@color/transparent</item><!--背景透明-->
         <item name="android:backgroundDimEnabled">true</item><!--模糊-->
     </style>
-    <!-- NOTitle -->
-    <style name="AppNoTitle" parent="Theme.AppCompat.Light.NoActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimary</item>
-        <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:windowLightStatusBar">true</item><!--黑色状态栏-->
-        <item name="android:statusBarColor">@color/transparent</item><!--状态栏透明色-->
-    </style>
+        <!-- NOTitle -->
+        <style name="AppNoTitle" parent="Theme.AppCompat.Light.NoActionBar">
+            <!-- Customize your theme here. -->
+            <item name="colorPrimary">@color/colorPrimary</item>
+            <item name="colorPrimaryDark">@color/colorPrimary</item>
+            <item name="colorAccent">@color/colorAccent</item>
+            <item name="android:windowLightStatusBar">true</item><!--黑色状态栏-->
+            <item name="android:statusBarColor">@color/transparent</item><!--状态栏透明色-->
+        </style>
     <!--菜单item字体样式-->
     <style name="menu_text">
         <item name="android:textColor">@color/secondary_text</item>

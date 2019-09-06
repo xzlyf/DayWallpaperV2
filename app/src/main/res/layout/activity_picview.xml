@@ -6,15 +6,45 @@
     android:layout_height="match_parent"
     android:background="@color/black"
     tools:context=".PicViewActivity">
-    <Button
-        android:id="@+id/Panorama_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:text="全景查看"/>
+
     <com.bm.library.PhotoView
         android:id="@+id/photo_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
+    <ImageView
+        android:id="@+id/tv_back"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_margin="30dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:padding="5dp"
+        android:background="@drawable/selector_btn_3"
+        android:src="@drawable/icon_back"/>
+
+    <LinearLayout
+        android:id="@+id/tv_menu"
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_height="wrap_content"
+        android:background="#181818"
+        android:layout_gravity="bottom">
+        <Button
+            android:id="@+id/Panorama_btn"
+            android:layout_width="wrap_content"
+            android:layout_weight="1"
+            android:textColor="#BBBBBB"
+            android:background="@drawable/selector_btn"
+            android:layout_height="wrap_content"
+            android:text="全景查看"/>
+        <Button
+            android:id="@+id/wallpaper_btn"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:textColor="#BBBBBB"
+            android:background="@drawable/selector_btn"
+            android:layout_height="wrap_content"
+            android:text="设为壁纸"/>
+    </LinearLayout>
 
 </FrameLayout>
