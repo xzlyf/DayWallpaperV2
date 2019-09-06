@@ -1,6 +1,7 @@
 package com.xz.daywallpaper;
 
 import android.graphics.Color;
+import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.TextInputEditText;
 import android.view.View;
 import android.widget.Button;
@@ -9,9 +10,11 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.romainpiel.shimmer.Shimmer;
 import com.romainpiel.shimmer.ShimmerButton;
 import com.xz.daywallpaper.base.BaseActivity;
+import com.xz.daywallpaper.entity.UserInfo;
 import com.xz.daywallpaper.utils.TransparentBarUtil;
 
 import java.util.HashMap;
@@ -33,6 +36,13 @@ public class MyselfActivity extends BaseActivity implements View.OnClickListener
     private TextInputEditText userInputRepsd;
     private ShimmerButton registerBtn;
     private CircleImageView userImage;
+    private ConstraintLayout layout3;
+
+    /**
+     * 登录后用户信息界面
+     */
+    private ImageView userPhoto;
+    private TextView userName;
 
 
 
@@ -55,7 +65,10 @@ public class MyselfActivity extends BaseActivity implements View.OnClickListener
         userInputPsd = findViewById(R.id.user_input_psd);
         userInputRepsd = findViewById(R.id.user_input_repsd);
         registerBtn = findViewById(R.id.register_btn);
+        layout3 = findViewById(R.id.layout_3);
         userImage = findViewById(R.id.user_image);
+        userPhoto = findViewById(R.id.user_photo);
+        userName = findViewById(R.id.user_name);
 
         back.setOnClickListener(this);
         loginBtn.setOnClickListener(this);
@@ -91,6 +104,15 @@ public class MyselfActivity extends BaseActivity implements View.OnClickListener
                 registerBtn.setText("登陆");
 
             }
+        }else if (object instanceof UserInfo){
+            UserInfo info = (UserInfo) object;
+            //得到用户信息
+            layout1.setVisibility(View.GONE);
+            layout3.setVisibility(View.VISIBLE);
+
+            Glide.with(this).load(info.getUserPhoto()).into(userPhoto);
+            userName.setText(info.getUserName());
+
         }
     }
 
@@ -107,8 +129,8 @@ public class MyselfActivity extends BaseActivity implements View.OnClickListener
                 break;
             case R.id.login_btn:
                 Map<String,String> userMap = new HashMap<>();
-                userMap.put("user_id",userId.getText().toString().trim());
-                userMap.put("user_psd",userPsd.getText().toString().trim());
+                userMap.put("name",userId.getText().toString().trim());
+                userMap.put("psw",userPsd.getText().toString().trim());
                 presenter.login(userMap);
 
                 shimmer.start(loginBtn);

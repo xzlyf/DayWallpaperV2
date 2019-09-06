@@ -3,13 +3,6 @@ package com.xz.daywallpaper.presenter;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Matrix;
-import android.graphics.Paint;
-import android.graphics.PorterDuff;
-import android.graphics.PorterDuffColorFilter;
-import android.graphics.Rect;
 import android.os.SystemClock;
 import android.renderscript.Allocation;
 import android.renderscript.Element;
@@ -18,21 +11,21 @@ import android.renderscript.ScriptIntrinsicBlur;
 import android.util.Log;
 
 import com.google.gson.Gson;
-import com.xz.com.log.LogUtil;
-import com.xz.daywallpaper.R;
 import com.xz.daywallpaper.base.BaseActivity;
 import com.xz.daywallpaper.constant.Local;
 import com.xz.daywallpaper.entity.PIc;
 import com.xz.daywallpaper.entity.PicTab;
 import com.xz.daywallpaper.entity.Update;
+import com.xz.daywallpaper.entity.UserInfo;
 import com.xz.daywallpaper.model.IModel;
 import com.xz.daywallpaper.model.Model;
+import com.xz.daywallpaper.net.HttpUtilV2;
 import com.xz.daywallpaper.utils.Date;
-import com.xz.daywallpaper.utils.NetUtil;
 import com.xz.daywallpaper.utils.SharedPreferencesUtil;
 import com.xz.daywallpaper.utils.ThreadUtil;
 import com.youtu.Youtu;
 
+import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -43,7 +36,6 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
@@ -51,8 +43,12 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Logger;
 
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Response;
+
+import static android.content.ContentValues.TAG;
 import static com.xz.daywallpaper.constant.Local.APP_ID;
 import static com.xz.daywallpaper.constant.Local.SECRET_ID;
 import static com.xz.daywallpaper.constant.Local.SECRET_KEY;
@@ -435,13 +431,13 @@ public class Presenter {
                         }
                     } else {
                         //服务器问题
-                        view.showDialog("服务器异常0x1",Local.DIALOG_E);
+                        view.showDialog("服务器异常0x1", Local.DIALOG_E);
                     }
 
                 } catch (JSONException e) {
                     e.printStackTrace();
                     //解析问题-可能是网站404了
-                    view.showDialog("服务器异常0x2",Local.DIALOG_E);
+                    view.showDialog("服务器异常0x2", Local.DIALOG_E);
 
 
                 }
@@ -457,20 +453,53 @@ public class Presenter {
 
     /**
      * 登陆操作======================================================================================
+     *
      * @param userMap 用户信息
      */
     public void login(Map<String, String> userMap) {
 
-        //模拟操作
-        ThreadUtil.runInThread(new Runnable() {
+
+
+
+        HttpUtilV2.post( Local.MSERVER_LOGIN,userMap, new Callback() {
             @Override
-            public void run() {
+            public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                Log.d(TAG, "onFailure: ");
+            }
 
-                SystemClock.sleep(2000);
+            @Override
+            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+                String jsonData = response.body().string();
+                Log.d(TAG, "onResponse: "+jsonData);
 
-                view.backToUi(false);//登陆失败
+                try {
+                    JSONObject obj1 = new JSONObject(jsonData);
+
+                    if (obj1.getString("is_succeed").equals("T")){
+                        //登录成功
+
+                        UserInfo info = new UserInfo();
+                        info.setUserName("小白");
+                        info.setUserNo("admin");
+                        info.setUserPhoto("https://www.z4a.net/images/2018/10/16/banner_intro.png");
+                        view.backToUi(info);
+                        view.backToUi(false);
+
+                    }else{
+                        //登录失败
+
+                        view.mToast(obj1.getString("msg"));
+                        view.backToUi(false);
+                    }
+
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
         });
+
+
     }
 
     /**

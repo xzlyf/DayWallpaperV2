@@ -8,11 +8,21 @@ public class Local {
     public static String picTDir = "";//当天Pic地址；
 
     public static String GET_SERVER_TIME="https://www.mxnzp.com/api/tools/system/time";//服务器时间
-    public static final String BING_API="https://cn.bing.com/HPImageArchive.aspx?format=js&idx=0&n=1&mkt=zh-CN";//服务器时间
+    public static final String BING_API="https://cn.bing.com/HPImageArchive.aspx?format=js&idx=0&n=1&mkt=zh-CN";
     public static final String UPDATE_SERVER = "http://www.xzlyf.club/DayWallpaper/update.json";//默认更新地址
 
     public static final String BING_HEAD="https://cn.bing.com";//
     public static String BASE_URL;//拼接完成的URL
+
+
+    private static final String MSERVER_URL_HEAF = "http://";
+    private static final String MSERVER_URL = "192.168.1.72";
+    private static final String MSERVER_PORT = "8080";
+    public static final String MSERVER_REQUEST = MSERVER_URL_HEAF+MSERVER_URL+":"+MSERVER_PORT+"/DayWallpaper/";
+
+    //接口实现===================
+    public static final String MSERVER_LOGIN = "login?";
+
 
 
     /**
