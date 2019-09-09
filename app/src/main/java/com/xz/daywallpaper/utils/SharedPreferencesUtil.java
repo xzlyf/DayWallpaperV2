@@ -74,4 +74,15 @@ public class SharedPreferencesUtil {
         return file.delete();
     }
 
+    public static void saveString(Context context, String file,String key,String data){
+        SharedPreferences sp = context.getSharedPreferences(file,
+                Context.MODE_PRIVATE);
+        sp.edit().putString(key, data).apply();
+    }
+    public static String getString(Context context, String file,String key, String defValue){
+        SharedPreferences sp = context.getSharedPreferences(file,
+                Context.MODE_PRIVATE);
+        return sp.getString(key,defValue);
+    }
+
 }

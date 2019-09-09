@@ -459,9 +459,7 @@ public class Presenter {
     public void login(Map<String, String> userMap) {
 
 
-
-
-        HttpUtilV2.post( Local.MSERVER_LOGIN,userMap, new Callback() {
+        HttpUtilV2.post(Local.MSERVER_LOGIN, userMap, new Callback() {
             @Override
             public void onFailure(@NotNull Call call, @NotNull IOException e) {
                 Log.d(TAG, "onFailure: ");
@@ -470,22 +468,29 @@ public class Presenter {
             @Override
             public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
                 String jsonData = response.body().string();
-                Log.d(TAG, "onResponse: "+jsonData);
+                Log.d(TAG, "onResponse: " + jsonData);
 
                 try {
                     JSONObject obj1 = new JSONObject(jsonData);
 
-                    if (obj1.getString("is_succeed").equals("T")){
+                    if (obj1.getString("is_succeed").equals("T")) {
                         //登录成功
+//
+//                        UserInfo info = new UserInfo();
+//                        info.setUserName("小白");
+//                        info.setUserNo("admin");
+//                        info.setUserPhoto("https://www.z4a.net/images/2018/10/16/banner_intro.png");
 
-                        UserInfo info = new UserInfo();
-                        info.setUserName("小白");
-                        info.setUserNo("admin");
-                        info.setUserPhoto("https://www.z4a.net/images/2018/10/16/banner_intro.png");
+                        Gson gson = new Gson();
+                        UserInfo info = gson.fromJson(obj1.getJSONObject("DATA").toString(), UserInfo.class);
+
+                        //保存登录状态
+                        saveInfo(obj1.getJSONObject("DATA").toString());
+
                         view.backToUi(info);
                         view.backToUi(false);
 
-                    }else{
+                    } else {
                         //登录失败
 
                         view.mToast(obj1.getString("msg"));
@@ -499,6 +504,17 @@ public class Presenter {
             }
         });
 
+
+    }
+
+    /**
+     * 保存用户数据至本地
+     *
+     * @param info
+     */
+    private void saveInfo(String info) {
+        SharedPreferencesUtil.saveState(view,"is_login",true);
+        SharedPreferencesUtil.saveString(view,"user","info",info);
 
     }
 

@@ -5,6 +5,15 @@ public class UserInfo {
     private String userName;//昵称
     private String userNo;//账号
     private String userPhoto;//头像
+    private String token;
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
 
     public String getUserName() {
         return userName;

@@ -1,8 +1,10 @@
 package com.xz.daywallpaper;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.TextInputEditText;
+import android.support.v7.widget.CardView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -11,10 +13,12 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.google.gson.Gson;
 import com.romainpiel.shimmer.Shimmer;
 import com.romainpiel.shimmer.ShimmerButton;
 import com.xz.daywallpaper.base.BaseActivity;
 import com.xz.daywallpaper.entity.UserInfo;
+import com.xz.daywallpaper.utils.SharedPreferencesUtil;
 import com.xz.daywallpaper.utils.TransparentBarUtil;
 
 import java.util.HashMap;
@@ -23,6 +27,12 @@ import java.util.Map;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MyselfActivity extends BaseActivity implements View.OnClickListener {
+
+    private boolean isLogin ;//登录标识
+
+    /**
+     * 控件
+     */
     private Shimmer shimmer;
     private ImageView back;
     private RelativeLayout layout1;
@@ -41,8 +51,10 @@ public class MyselfActivity extends BaseActivity implements View.OnClickListener
     /**
      * 登录后用户信息界面
      */
-    private ImageView userPhoto;
+    private CircleImageView userPhoto;
     private TextView userName;
+    private TextView logOut;
+
 
 
 
@@ -69,11 +81,13 @@ public class MyselfActivity extends BaseActivity implements View.OnClickListener
         userImage = findViewById(R.id.user_image);
         userPhoto = findViewById(R.id.user_photo);
         userName = findViewById(R.id.user_name);
+        logOut = findViewById(R.id.log_out);
 
         back.setOnClickListener(this);
         loginBtn.setOnClickListener(this);
         registerText.setOnClickListener(this);
         registerBtn.setOnClickListener(this);
+        logOut.setOnClickListener(this);
 
         shimmer = new Shimmer();
     }
@@ -81,7 +95,31 @@ public class MyselfActivity extends BaseActivity implements View.OnClickListener
     @Override
     public void init_Data() {
         TransparentBarUtil.makeStatusBarTransparent(this);
+        isLogin = SharedPreferencesUtil.getState(this,"is_login",false);
+        //根据是否登录在加载不同的控件
+        if (isLogin){
+            showUserInfo();
+        }
 
+
+    }
+
+    /**
+     * 加载本地缓存数据显示已登录的界面
+     */
+    private void showUserInfo(){
+        String json = SharedPreferencesUtil.getString(this,"user","info","null");
+        if (json.equals("null")){
+            layout1.setVisibility(View.VISIBLE);
+            return;
+        }
+        Gson gson = new Gson();
+        UserInfo userInfo = gson.fromJson(json,UserInfo.class);
+        layout1.setVisibility(View.GONE);
+        layout3.setVisibility(View.VISIBLE);
+
+        Glide.with(this).load(userInfo.getUserPhoto()).into(userPhoto);
+        userName.setText(userInfo.getUserName());
 
     }
 
@@ -128,8 +166,13 @@ public class MyselfActivity extends BaseActivity implements View.OnClickListener
                 }
                 break;
             case R.id.login_btn:
+
+                if (userId.getText().toString().trim().equals("")||userPsd.getText().toString().trim().equals("")){
+                    mToast("请输入账号密码");
+                    return;
+                }
                 Map<String,String> userMap = new HashMap<>();
-                userMap.put("name",userId.getText().toString().trim());
+                userMap.put("id",userId.getText().toString().trim());
                 userMap.put("psw",userPsd.getText().toString().trim());
                 presenter.login(userMap);
 
@@ -154,6 +197,14 @@ public class MyselfActivity extends BaseActivity implements View.OnClickListener
 
                 break;
             case R.id.user_image:
+                break;
+            case R.id.log_out:
+                //退出登录
+                //清空状态
+                SharedPreferencesUtil.saveState(this,"is_login",false);
+                SharedPreferencesUtil.saveString(this,"user","info","");
+                startActivity(new Intent(MyselfActivity.this,MyselfActivity.class));
+                finish();
                 break;
         }
     }
