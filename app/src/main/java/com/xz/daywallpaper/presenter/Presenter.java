@@ -463,6 +463,9 @@ public class Presenter {
             @Override
             public void onFailure(@NotNull Call call, @NotNull IOException e) {
                 Log.d(TAG, "onFailure: ");
+                view.mToast("当前网络异常");
+                view.backToUi(false);
+
             }
 
             @Override
