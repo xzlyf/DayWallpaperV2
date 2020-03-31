@@ -4,6 +4,9 @@ import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.os.SystemClock;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.CardView;
@@ -16,7 +19,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.orhanobut.logger.Logger;
 import com.xz.daywallpaper.R;
+import com.xz.daywallpaper.activity.fragment.DetailFragment;
 import com.xz.daywallpaper.adapter.TabAdapter;
 import com.xz.daywallpaper.base.BaseActivity;
 import com.xz.daywallpaper.constant.Local;
@@ -39,12 +44,14 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private TextView enddate;
     private TextView copyright;
     private ImageView mainPic;
-    private RecyclerView recycler;
-    private TabAdapter adapter;
     private boolean isClick = true;
     private NestedScrollView scrollView;
     private ImageView mLikeIt;
     private ImageView mHateIt;
+    private FragmentTransaction fragmentTransaction;
+    private FragmentManager fragmentManager;
+    private DetailFragment detailFragment;
+    private boolean isRun = false;
 
 
     @Override
@@ -62,14 +69,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         enddate = findViewById(R.id.enddate);
         menu.setOnClickListener(this);
         mainPic.setOnClickListener(this);
-        recycler = findViewById(R.id.recycler_tab);
         scrollView = findViewById(R.id.scroll_bar);
         mLikeIt = findViewById(R.id.like_it);
         mHateIt = findViewById(R.id.hate_it);
         mHateIt.setOnClickListener(this);
         mLikeIt.setOnClickListener(this);
-
-
         //长按查看图片
         mainPic.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
@@ -78,6 +82,14 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 return true;
             }
         });
+
+        fragmentManager = getSupportFragmentManager();
+        fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentManager.beginTransaction();
+        detailFragment = new DetailFragment();
+        //fragmentTransaction.add(R.id.fragment_select, detailFragment);
+        fragmentTransaction.replace(R.id.fragment_select, detailFragment);
+        fragmentTransaction.commit();
 
 
     }
@@ -92,7 +104,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
         } else if (object instanceof List) {
             //标签列表
-            adapter.refresh((List<PicTab>) object);
 
         } else if (object instanceof Bitmap) {
             //模糊图片反馈
@@ -113,7 +124,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         } else {
             enddate.setText(Local.info.enddate);
             copyright.setText(Local.info.copyright);
-
             update_state();//更新下状态
         }
     }
@@ -128,8 +138,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         showLoading();
         init_anim();
         presenter.initMainPic();
-        init_recycler();
         init_update();
+
+
     }
 
     /**
@@ -153,6 +164,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
 
     private void update_state() {
+
         if (Local.info.isHate) {
             mHateIt.setImageTintList(ColorStateList.valueOf(ContextCompat.getColor(this, R.color.colorPrimaryDark)));
             presenter.blurryPic(Local.picTDir);
@@ -162,13 +174,15 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             Glide.with(this).load(Local.picTDir).into(mainPic);
 
         }
-    }
 
-    private void init_recycler() {
-        recycler.setLayoutManager(new LinearLayoutManager(this));
-        recycler.addItemDecoration(new SpacesItemDecorationVertical(20));
-        adapter = new TabAdapter(this);
-        recycler.setAdapter(adapter);
+
+        /**
+         * 获取图片详情，只加载一次
+         */
+        if (!isRun) {
+            detailFragment.setPicPath(Local.picTDir);
+            isClick = true;
+        }
     }
 
 

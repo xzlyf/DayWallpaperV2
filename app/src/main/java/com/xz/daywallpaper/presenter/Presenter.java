@@ -248,44 +248,9 @@ public class Presenter {
             }
         }
         view.backToUi(file.getAbsoluteFile());
-        getPicTab();
     }
 
-    /**
-     * 腾讯优图api
-     * 识别场景标签
-     */
-    private void getPicTab() {
-        Youtu faceYoutu = new Youtu(APP_ID, SECRET_ID, SECRET_KEY, Youtu.API_YOUTU_END_POINT, USER_ID);
-        JSONObject obj = null;
-        try {
-//            Logger.json("标签", obj.toString());
-            obj = faceYoutu.ImageTagUrl(Local.BASE_URL);
-            if (obj.getInt("errorcode") == 0) {
 
-                JSONArray array = obj.getJSONArray("tags");
-                List<PicTab> list = new ArrayList<>();
-                Gson gson = new Gson();
-
-                for (int i = 0; i < array.length(); i++) {
-                    list.add(gson.fromJson(array.get(i).toString(), PicTab.class));
-                }
-                //保存标签数据到本地
-                SharedPreferencesUtil.savePicData(view, Local.simTime, "tab", array.toString());
-                view.backToUi(list);
-
-//                Gson gson = new Gson();
-//                view.backToUi(gson.fromJson(obj.toString(),PicTab.class));
-            } else {
-                view.mToast("AI场景标签识别错误" + obj.getString("errormsg"));
-                view.dismissLoading();
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            view.mToast("标签获取失败");
-            view.dismissLoading();
-        }
-    }
 
     /**
      * 对Pic进行模糊=================================================================================

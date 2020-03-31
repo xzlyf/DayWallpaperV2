@@ -42,4 +42,11 @@ dependencies {
     implementation 'com.loopj.android:android-async-http:1.4.9'
     //logger
     implementation 'com.orhanobut:logger:1.15'
+    androidTestImplementation 'androidx.test:runner:1.2.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+
+    //网络请求必备
+    implementation 'com.google.code.gson:gson:2.8.5'
+    implementation 'com.squareup.okhttp3:okhttp:3.11.0'
+    implementation 'com.squareup.okhttp:okhttp:2.4.0'
 }
