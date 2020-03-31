@@ -1,6 +1,5 @@
 package com.xz.daywallpaper;
 
-import android.animation.ObjectAnimator;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
@@ -13,23 +12,23 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.view.animation.AnticipateOvershootInterpolator;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.xz.com.log.LogConfig;
 import com.xz.daywallpaper.adapter.TabAdapter;
 import com.xz.daywallpaper.base.BaseActivity;
 import com.xz.daywallpaper.constant.Local;
-import com.xz.daywallpaper.widget.MenuDialog;
-import com.xz.daywallpaper.widget.UpdateDialog;
 import com.xz.daywallpaper.entity.PicTab;
 import com.xz.daywallpaper.entity.Update;
 import com.xz.daywallpaper.utils.PackageUtil;
 import com.xz.daywallpaper.utils.SharedPreferencesUtil;
 import com.xz.daywallpaper.utils.SpacesItemDecorationVertical;
 import com.xz.daywallpaper.utils.ThreadUtil;
+import com.xz.daywallpaper.widget.MenuDialog;
+import com.xz.daywallpaper.widget.UpdateDialog;
 
 import java.util.List;
 
@@ -126,10 +125,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         //初始化一些数据，这些都要放进initActivity中初始化
         Local.info.isHate = SharedPreferencesUtil.getState(this, "is_hate", false);
         Local.info.LocalVersionCode = PackageUtil.getVersionCode(this);
-        init_log();
         //============================================
         showLoading();
-        init_anim();
+        //init_anim();
         presenter.initMainPic();
         init_recycler();
         init_update();
@@ -175,16 +173,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     }
 
 
-    /**
-     * 初始化日志工具
-     */
-    private void init_log() {
-        LogConfig config = LogConfig.getInstance();
-        config.setShowLog(true);
-        config.setFlag("xzlyf");
-    }
-
-
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
@@ -223,17 +211,22 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     }
 
     private void showPicInfo() {
-
-        infoView.startAnimation(weiyi2_Res);
-        headview.startAnimation(weiyi_Res);
+        //改为使用属性动画
+        infoView.animate().translationYBy(300f).setDuration(800);
+        headview.animate().translationYBy(-300f).setDuration(800);
+        //infoView.startAnimation(weiyi2_Res);
+        //headview.startAnimation(weiyi_Res);
         isClick = true;
         mLikeIt.setEnabled(true);
         mHateIt.setEnabled(true);
     }
 
     private void hidePicInfo() {
-        infoView.startAnimation(weiyi2);
-        headview.startAnimation(weiyi);
+        //改为使用属性动画
+        infoView.animate().translationY(-300f).setDuration(800);
+        headview.animate().translationY(300f).setDuration(800);
+        //infoView.startAnimation(weiyi2);
+        //headview.startAnimation(weiyi);
         mLikeIt.setEnabled(false);
         mHateIt.setEnabled(false);
         isClick = false;

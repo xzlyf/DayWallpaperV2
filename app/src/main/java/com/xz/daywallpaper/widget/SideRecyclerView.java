@@ -13,8 +13,6 @@ import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.widget.Scroller;
 
-import com.xz.com.log.LogUtil;
-
 public class SideRecyclerView extends RecyclerView {
     /**
      * 最小速度

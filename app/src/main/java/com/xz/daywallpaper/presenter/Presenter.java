@@ -75,7 +75,7 @@ public class Presenter {
                 JSONObject obj = null;
 
                 try {
-                    //    LogUtil.w("网络时间："+data);
+                    //    Logger.w("网络时间："+data);
                     obj = new JSONObject(data);
                     if (obj.getString("code").equals("1")) {
                         JSONObject obj2 = obj.getJSONObject("data");
@@ -259,7 +259,7 @@ public class Presenter {
         Youtu faceYoutu = new Youtu(APP_ID, SECRET_ID, SECRET_KEY, Youtu.API_YOUTU_END_POINT, USER_ID);
         JSONObject obj = null;
         try {
-//            LogUtil.json("标签", obj.toString());
+//            Logger.json("标签", obj.toString());
             obj = faceYoutu.ImageTagUrl(Local.BASE_URL);
             if (obj.getInt("errorcode") == 0) {
 
@@ -417,7 +417,7 @@ public class Presenter {
                 JSONObject obj = null;
 
                 try {
-//                    LogUtil.json("更新数据",data);
+//                    Logger.json("更新数据",data);
                     obj = new JSONObject(data);
                     if (obj.getInt("value") == 1) {
                         JSONObject obj2 = obj.getJSONObject("data");

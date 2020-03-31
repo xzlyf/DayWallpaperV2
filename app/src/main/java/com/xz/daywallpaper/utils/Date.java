@@ -1,7 +1,5 @@
 package com.xz.daywallpaper.utils;
 
-import com.xz.com.log.LogUtil;
-
 import java.text.SimpleDateFormat;
 
 

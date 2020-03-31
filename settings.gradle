@@ -1,1 +1,1 @@
-include ':app', ':LogUtil'
+include ':app'

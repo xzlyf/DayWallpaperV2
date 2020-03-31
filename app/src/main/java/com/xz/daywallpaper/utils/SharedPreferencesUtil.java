@@ -3,7 +3,7 @@ package com.xz.daywallpaper.utils;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.xz.com.log.LogUtil;
+import com.orhanobut.logger.Logger;
 
 import java.io.File;
 
@@ -61,15 +61,15 @@ public class SharedPreferencesUtil {
 
         //判断路径是否存在
         if (!file.exists()){
-            LogUtil.d("a"+file.getAbsolutePath());
+            Logger.d("a"+file.getAbsolutePath());
             return false;
         }
         //判断是文件夹还是文件
         if (file.isDirectory()){
-            LogUtil.d("b");
+            Logger.d("b");
             return false;
         }
-        LogUtil.d("c");
+        Logger.d("c");
 
         return file.delete();
     }

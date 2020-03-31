@@ -17,20 +17,11 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.MenuItem;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.view.animation.RotateAnimation;
-import android.view.animation.TranslateAnimation;
-import android.widget.FrameLayout;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.Toast;
 
-import com.xz.com.log.LogUtil;
 import com.xz.daywallpaper.R;
 import com.xz.daywallpaper.presenter.Presenter;
 import com.xz.daywallpaper.utils.ActivityUtil;
-import com.xz.daywallpaper.utils.TransparentBottom;
 
 
 public abstract class BaseActivity extends AppCompatActivity {
@@ -77,7 +68,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-//        LogUtil.toSave();
+//        Logger.toSave();
         ActivityUtil.removeActivity(this);
     }
 

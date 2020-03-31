@@ -1,11 +1,10 @@
 package com.xz.daywallpaper.model;
 
-import com.xz.com.log.LogUtil;
+import com.orhanobut.logger.Logger;
 
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
-import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -33,7 +32,7 @@ public class Model implements IModel {
                     String responseData = response.body().string();
                     listener.success(responseData);
                 } catch (IOException e) {
-                    LogUtil.e("请求失败链接："+url);
+                    Logger.e("请求失败链接："+url);
                     listener.failed(e);
                 }
             }

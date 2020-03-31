@@ -36,7 +36,7 @@ public class PicPanoramaActivity extends AppCompatActivity{
 
 
         gyroscopeObserver = new GyroscopeObserver();
-        gyroscopeObserver.setMaxRotateRadian(Math.PI / 9);
+        gyroscopeObserver.setMaxRotateRadian(Math.PI / 2.5);
         PanoramaImageView panoramaImageView = findViewById(R.id.panorama_image_view);
         panoramaImageView.setGyroscopeObserver(gyroscopeObserver);
         panoramaImageView.setImageBitmap(ImageUtil.lcoalImage2Bitmap(path));
