@@ -127,7 +127,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         Local.info.LocalVersionCode = PackageUtil.getVersionCode(this);
         //============================================
         showLoading();
-        //init_anim();
+        init_anim();
         presenter.initMainPic();
         init_recycler();
         init_update();

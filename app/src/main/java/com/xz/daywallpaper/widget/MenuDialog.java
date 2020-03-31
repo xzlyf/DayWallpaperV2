@@ -47,7 +47,6 @@ public class MenuDialog extends Dialog implements View.OnClickListener{
 
         findId();
         init_anim();
-        showItem();
 
     }
     @Override
@@ -66,6 +65,12 @@ public class MenuDialog extends Dialog implements View.OnClickListener{
             case R.id.v4:
                 break;
         }
+    }
+
+    @Override
+    public void show() {
+        super.show();
+        showItem();
     }
 
     private long reOnlick = 0;
