@@ -18,24 +18,24 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".SettingActivity"></activity>
+        <activity android:name=".activity.SettingActivity"></activity>
         <activity
-            android:name=".MyselfActivity"
+            android:name=".activity.MyselfActivity"
             android:theme="@style/AppNoTitle" />
-        <activity android:name=".PicDetailActivity" />
+        <activity android:name=".activity.PicDetailActivity" />
         <activity
-            android:name=".PicPanoramaActivity"
+            android:name=".activity.PicPanoramaActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppNoTitle" />
         <activity
-            android:name=".PicViewActivity"
+            android:name=".activity.PicViewActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppNoTitle" />
         <activity
-            android:name=".CacheActivity"
+            android:name=".activity.CacheActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".MainActivity"
+            android:name=".activity.MainActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppNoTitle">
             <intent-filter>

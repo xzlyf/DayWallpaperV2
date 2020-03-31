@@ -1,19 +1,13 @@
-package com.xz.daywallpaper;
+package com.xz.daywallpaper.activity;
 
 import android.app.WallpaperManager;
-import android.content.ComponentName;
-import android.content.Context;
 import android.content.Intent;
-import android.graphics.drawable.BitmapDrawable;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -22,14 +16,12 @@ import android.widget.Toast;
 
 import com.bm.library.PhotoView;
 import com.bumptech.glide.Glide;
+import com.xz.daywallpaper.R;
 import com.xz.daywallpaper.utils.ImageUtil;
 import com.xz.daywallpaper.utils.TransparentBarUtil;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
 
 public class PicViewActivity extends AppCompatActivity implements View.OnClickListener {
     private PhotoView mPhotoView;

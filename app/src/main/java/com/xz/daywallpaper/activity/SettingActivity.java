@@ -1,5 +1,6 @@
-package com.xz.daywallpaper;
+package com.xz.daywallpaper.activity;
 
+import com.xz.daywallpaper.R;
 import com.xz.daywallpaper.base.BaseActivity;
 
 public class SettingActivity extends BaseActivity {

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/black"
-    tools:context=".PicViewActivity">
+    tools:context=".activity.PicViewActivity">
 
     <com.bm.library.PhotoView
         android:id="@+id/photo_view"

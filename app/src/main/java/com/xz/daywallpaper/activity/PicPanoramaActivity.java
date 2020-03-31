@@ -1,10 +1,11 @@
-package com.xz.daywallpaper;
+package com.xz.daywallpaper.activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.gjiazhe.panoramaimageview.GyroscopeObserver;
 import com.gjiazhe.panoramaimageview.PanoramaImageView;
+import com.xz.daywallpaper.R;
 import com.xz.daywallpaper.utils.ImageUtil;
 import com.xz.daywallpaper.utils.TransparentBarUtil;
 

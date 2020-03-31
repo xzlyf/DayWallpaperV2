@@ -9,12 +9,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.xz.daywallpaper.PicDetailActivity;
+import com.xz.daywallpaper.activity.PicDetailActivity;
 import com.xz.daywallpaper.R;
-import com.xz.daywallpaper.constant.Local;
 import com.xz.daywallpaper.entity.PIc;
 import com.xz.daywallpaper.utils.FileUtil;
 import com.xz.daywallpaper.utils.SharedPreferencesUtil;

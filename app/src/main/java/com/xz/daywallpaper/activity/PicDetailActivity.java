@@ -1,4 +1,4 @@
-package com.xz.daywallpaper;
+package com.xz.daywallpaper.activity;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -6,6 +6,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.xz.daywallpaper.R;
 import com.xz.daywallpaper.base.BaseActivity;
 import com.xz.daywallpaper.utils.Date;
 

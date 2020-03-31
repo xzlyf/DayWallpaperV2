@@ -14,10 +14,10 @@ import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 
-import com.xz.daywallpaper.CacheActivity;
-import com.xz.daywallpaper.MyselfActivity;
+import com.xz.daywallpaper.activity.CacheActivity;
+import com.xz.daywallpaper.activity.MyselfActivity;
 import com.xz.daywallpaper.R;
-import com.xz.daywallpaper.SettingActivity;
+import com.xz.daywallpaper.activity.SettingActivity;
 
 public class MenuDialog extends Dialog implements View.OnClickListener{
     private final Context mContext;

@@ -1,4 +1,4 @@
-package com.xz.daywallpaper;
+package com.xz.daywallpaper.activity;
 
 import android.content.Intent;
 import android.content.res.ColorStateList;
@@ -13,11 +13,10 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.xz.daywallpaper.R;
 import com.xz.daywallpaper.adapter.TabAdapter;
 import com.xz.daywallpaper.base.BaseActivity;
 import com.xz.daywallpaper.constant.Local;

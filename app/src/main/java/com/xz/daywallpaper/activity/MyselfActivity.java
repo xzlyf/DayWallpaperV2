@@ -1,12 +1,10 @@
-package com.xz.daywallpaper;
+package com.xz.daywallpaper.activity;
 
 import android.content.Intent;
 import android.graphics.Color;
 import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.TextInputEditText;
-import android.support.v7.widget.CardView;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -16,6 +14,7 @@ import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.romainpiel.shimmer.Shimmer;
 import com.romainpiel.shimmer.ShimmerButton;
+import com.xz.daywallpaper.R;
 import com.xz.daywallpaper.base.BaseActivity;
 import com.xz.daywallpaper.entity.UserInfo;
 import com.xz.daywallpaper.utils.SharedPreferencesUtil;

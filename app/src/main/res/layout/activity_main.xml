@@ -10,7 +10,7 @@
     android:paddingLeft="15dp"
     android:paddingRight="15dp"
     android:focusableInTouchMode="true"
-    tools:context=".MainActivity">
+    tools:context=".activity.MainActivity">
 
 
     <LinearLayout
@@ -127,33 +127,6 @@
                 </FrameLayout>
             </LinearLayout>
         </android.support.v7.widget.CardView>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="30dp"
-            android:text="▼AI智能识图▼"
-            android:textSize="18sp" />
-        <!--标签-->
-        <android.support.v7.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:clickable="true"
-            android:focusable="true"
-            android:foreground="?attr/selectableItemBackgroundBorderless"
-            app:cardCornerRadius="8dp">
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/recycler_tab"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_gravity="bottom"
-                android:layout_margin="25dp"
-                android:overScrollMode="never" />
-        </android.support.v7.widget.CardView>
-
     </LinearLayout>
 
 </android.support.v4.widget.NestedScrollView>

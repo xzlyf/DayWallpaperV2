@@ -1,35 +1,22 @@
 package com.xz.daywallpaper.adapter;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
-import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.DecelerateInterpolator;
-import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.xz.daywallpaper.PicDetailActivity;
-import com.xz.daywallpaper.PicViewActivity;
+import com.xz.daywallpaper.activity.PicDetailActivity;
 import com.xz.daywallpaper.R;
 import com.xz.daywallpaper.entity.PIc;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static android.support.constraint.Constraints.TAG;
-import static android.view.ViewGroup.getChildMeasureSpec;
 
 public class CacheAdapter extends RecyclerView.Adapter<CacheAdapter.ViewHolder> {
     private Context context;

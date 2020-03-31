@@ -1,9 +1,10 @@
-package com.xz.daywallpaper;
+package com.xz.daywallpaper.activity;
 
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.TextView;
 
+import com.xz.daywallpaper.R;
 import com.xz.daywallpaper.adapter.CacheAdapter;
 import com.xz.daywallpaper.adapter.NewCacheAdapter;
 import com.xz.daywallpaper.base.BaseActivity;
