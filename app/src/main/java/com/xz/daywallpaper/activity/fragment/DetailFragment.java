@@ -3,8 +3,10 @@ package com.xz.daywallpaper.activity.fragment;
 import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 
 import com.google.gson.Gson;
@@ -83,7 +85,9 @@ public class DetailFragment extends BaseFragment {
      */
     public void setPicPath(String path) {
         try {
-            getPicTabV2(path);
+            //getPicTabV2(path);
+            getVisionScreen(path);
+            //getTextChat("你好呀！");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -131,17 +135,53 @@ public class DetailFragment extends BaseFragment {
     /**
      * 腾讯Ai开放平台标签识别
      */
-    private void getPicTabV2(String path) throws Exception {
+    private void getPicTabV2(String path) {
+        String base64 = "";
+        base64 = Base64Util.imageToBase64(path, "jpeg");
         Map<String, String> params = new HashMap<>();
         params.put("app_id", Local.APP_ID_TC);
-        params.put("time_stamp", System.currentTimeMillis() / 1000+"");
+        params.put("time_stamp", System.currentTimeMillis() / 1000 + "");
         params.put("nonce_str", RandomUtil.getRandomString(32));
+        //======
+        params.put("image", base64);//原始图片的base64编码数据（原图大小上限1MB）
+        //======
         params.put("sign", SignMD5.getSignMD5(Local.APP_KEY_TC, params));
-        //======
-        //params.put("image", Base64Util.encodeBase64File(path));//原始图片的base64编码数据（原图大小上限1MB）
 
+        //OkHttpClientManager.postAsyn(Local.IMAGETAB, new OkHttpClientManager.ResultCallback<String>() {
+        //    @Override
+        //    public void onError(Request request, Exception e) {
+        //        e.printStackTrace();
+        //    }
+        //
+        //    @Override
+        //    public void onResponse(String response) {
+        //        Logger.w(response);
+        //    }
+        //
+        //}, params);
+    }
+
+
+    /**
+     * 腾讯Ai开放平台场景识别
+     *
+     * @param path
+     */
+    private void getVisionScreen(String path) {
+        String base64 = "";
+        base64 = Base64Util.imageToBase64(path, "jpeg");
+        Map<String, String> params = new HashMap<>();
+        params.put("app_id", Local.APP_ID_TC);
+        params.put("time_stamp", String.valueOf(System.currentTimeMillis() / 1000));
+        params.put("nonce_str", RandomUtil.getRandomString(32));
         //======
-        OkHttpClientManager.postAsyn(Local.IMAGETAB, new OkHttpClientManager.ResultCallback<String>() {
+        params.put("format", "1");//图片格式
+        params.put("topk", "1");//返回结果
+        params.put("image", base64);//原始图片的base64编码数据（原图大小上限1MB）
+        //======
+        params.put("sign", SignMD5.getSignMD5(Local.APP_KEY_TC, params));
+
+        OkHttpClientManager.postAsyn(Local.VISIONSCENER, new OkHttpClientManager.ResultCallback<String>() {
             @Override
             public void onError(Request request, Exception e) {
                 e.printStackTrace();
@@ -153,6 +193,9 @@ public class DetailFragment extends BaseFragment {
             }
 
         }, params);
+
+
     }
+
 
 }

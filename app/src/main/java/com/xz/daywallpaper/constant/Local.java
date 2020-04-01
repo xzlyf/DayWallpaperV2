@@ -39,6 +39,10 @@ public class Local {
     public final static String IMAGETOTEXT = "https://api.ai.qq.com/fcgi-bin/vision/vision_imgtotext";
     //多标签识别
     public final static String IMAGETAB = "https://api.ai.qq.com/fcgi-bin/image/image_tag";
+    //场景识别
+    public final static String VISIONSCENER = "https://api.ai.qq.com/fcgi-bin/vision/vision_scener";
+    //智能闲聊
+    public final static String GETTEXTCHAT = "https://api.ai.qq.com/fcgi-bin/nlp/nlp_textchat";
     //腾讯Ai开放平台 官网：https://ai.qq.com/doc/home.shtml==========================================
 
 

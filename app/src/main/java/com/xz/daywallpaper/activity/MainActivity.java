@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -39,6 +40,7 @@ import java.util.List;
 public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     private ImageView menu;
+    private LinearLayout middleLayout;
     private CardView infoView;
     private CardView headview;
     private TextView enddate;
@@ -62,6 +64,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     @Override
     public void findID() {
         menu = findViewById(R.id.menu);
+        middleLayout = findViewById(R.id.middle_layout);
         infoView = findViewById(R.id.info_view);
         copyright = findViewById(R.id.copyright);
         mainPic = findViewById(R.id.main_pic);
@@ -82,14 +85,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 return true;
             }
         });
-
-        fragmentManager = getSupportFragmentManager();
-        fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentManager.beginTransaction();
-        detailFragment = new DetailFragment();
-        //fragmentTransaction.add(R.id.fragment_select, detailFragment);
-        fragmentTransaction.replace(R.id.fragment_select, detailFragment);
-        fragmentTransaction.commit();
 
 
     }
@@ -137,10 +132,21 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         //============================================
         showLoading();
         init_anim();
+        initFragment();
         presenter.initMainPic();
         init_update();
 
 
+    }
+
+    private void initFragment() {
+        fragmentManager = getSupportFragmentManager();
+        fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentManager.beginTransaction();
+        detailFragment = new DetailFragment();
+        //fragmentTransaction.add(R.id.fragment_select, detailFragment);
+        fragmentTransaction.replace(R.id.fragment_select, detailFragment);
+        fragmentTransaction.commit();
     }
 
     /**
@@ -180,8 +186,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
          * 获取图片详情，只加载一次
          */
         if (!isRun) {
+            isRun = true;
             detailFragment.setPicPath(Local.picTDir);
-            isClick = true;
         }
     }
 
@@ -238,6 +244,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         //改为使用属性动画
         infoView.animate().translationY(-300f).setDuration(800);
         headview.animate().translationY(300f).setDuration(800);
+
         //infoView.startAnimation(weiyi2);
         //headview.startAnimation(weiyi);
         mLikeIt.setEnabled(false);
